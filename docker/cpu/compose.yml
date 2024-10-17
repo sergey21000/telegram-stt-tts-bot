@@ -1,0 +1,10 @@
+services:
+  bot-cpu:
+    image: sergey21000/telegram-stt-tts-bot:cpu
+    container_name: bot-cpu
+    volumes:
+      - ../../llm_model:/app/llm_model
+      - ../../vosk_models:/app/vosk_models
+      - ../../config.py:/app/config.py
+    env_file: ../../.env
+    restart: unless-stopped

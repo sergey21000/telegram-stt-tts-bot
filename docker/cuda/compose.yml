@@ -1,0 +1,17 @@
+services:
+  bot-cuda:
+    image: sergey21000/telegram-stt-tts-bot:cuda
+    container_name: bot-cuda
+    volumes:
+      - ../../llm_model:/app/llm_model
+      - ../../vosk_models:/app/vosk_models
+      - ../../config.py:/app/config.py
+    env_file: ../../.env
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
