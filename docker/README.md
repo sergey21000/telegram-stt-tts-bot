@@ -52,25 +52,31 @@ git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
 
+Далее перейти в директорию для CPU или CUDA
+
+*Переход в директорию для CPU*
+```
+cd docker/cpu
+```
+
+*Переход в директорию для CUDA*
+```
+cd docker/cuda
+```
+
+**2) Установка токена бота**
+
 Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather  
 Например сделать это через терминал Linux
 ```
 echo BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4 > .env
 ```
-
-Далее перейти в директорию для CPU или CUDA
-
-*Переход в директорию с `compose.yml` для CPU*
-```
-cd docker/cpu
+Пример файла `.env`
+```env
+BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
 ```
 
-*Переход в директорию с `compose.yml` для CUDA*
-```
-cd docker/cuda
-```
-
-**2) Запуск бота**
+**3) Запуск бота**
 
 ```
 docker compose up -d
@@ -96,9 +102,16 @@ docker compose down
 ---
 ### Запуск через Docker из образа Docker HUB
 
-Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather
+**1) Установка токена бота**
 
-**1) Запуск бота**
+Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather  
+Пример файла `.env`
+```env
+BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
+```
+
+
+**2) Запуск бота**
 
 *С поддержкой CPU*
 ```
@@ -152,9 +165,15 @@ docker build -t telegram-stt-tts-bot:cpu -f docker/cpu/Dockerfile .
 docker build -t telegram-stt-tts-bot:cuda -f docker/cuda/Dockerfile .
 ```
 
-**3) Запуск контейнера**
+**3) Установка токена бота**
 
-Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather
+Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather  
+Пример файла `.env`
+```env
+BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
+```
+
+**4) Запуск контейнера**
 
 *С поддержкой CPU*
 ```
@@ -188,8 +207,6 @@ git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
 
-Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather
-
 Далее перейти в директорию для CPU или CUDA
 
 *Переход в директорию с `Dockerfile` для CPU*
@@ -202,7 +219,15 @@ cd docker/cpu
 cd docker/cuda
 ```
 
-**2) Сборка образа**
+**2) Установка токена бота**
+
+Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather  
+Пример файла `.env`
+```env
+BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
+```
+
+**3) Сборка образа**
 
 Редактировать содержимое `compose.yml` (изменено название образа `image:` и добавлена секция `build:`)
 
@@ -252,10 +277,13 @@ services:
 docker compose build
 ```
 
-**3) Запуск контейнера**
+**4) Запуск контейнера**
 ```
 docker compose up -d
 ```
+
+---
+*Другие команды*
 
 Запуск контейнера с принудительной пересборкой
 ```
