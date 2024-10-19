@@ -58,7 +58,7 @@ cd telegram-stt-tts-bot
 echo BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4 > .env
 ```
 
-Далее выбрать вариант для CPU или CUDA
+Далее перейти в директорию для CPU или CUDA
 
 *Переход в директорию с `compose.yml` для CPU*
 ```
@@ -190,7 +190,7 @@ cd telegram-stt-tts-bot
 
 Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather
 
-Далее выбрать вариант для CPU или CUDA
+Далее перейти в директорию для CPU или CUDA
 
 *Переход в директорию с `Dockerfile` для CPU*
 ```
