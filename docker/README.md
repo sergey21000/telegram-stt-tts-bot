@@ -1,9 +1,16 @@
 
+# Запуск Telegram бота через Docker
+
+<div align="left">
+
+<a href="https://hub.docker.com/r/sergey21000/telegram-stt-tts-bot"><img src="https://img.shields.io/badge/Docker-Hub-blue?logo=docker" alt="Docker Hub "></a>
+</div>
+
 > [!WARNING]  
 > Для запуска Docker контейнеров с поддержкой GPU CUDA необходима установка [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installation).
 
 
-## **Установка Docker и NVIDIA Container Toolkit на Linux**
+## Установка Docker и NVIDIA Container Toolkit на Linux
 
 Установка Docker и Docker Compose
 ```
@@ -14,7 +21,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-Установка NVIDIA Container Toolkit
+Установка NVIDIA Container Toolkit (необходимо только для GPU)
 ```
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
@@ -26,7 +33,7 @@ sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 ```
 
-## **Запуск бота через Docker**
+## Запуск бота через Docker
 
 Ниже перечислены 4 способа запуска бота через Docker  
 
