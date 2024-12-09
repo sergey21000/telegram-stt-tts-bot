@@ -1,4 +1,6 @@
 
+
+---
 # Telegram Speech-to-Text Text-to-Speech Bot
 
 Telegram бот с поддержкой голосового и текстового общения, использующий технологии распознавания и синтеза речи  
@@ -58,13 +60,13 @@ Telegram бот с поддержкой голосового и текстово
 **1) Установка `ffmpeg`**
 
  - *Linux*
-```
-sudo apt install ffmpeg
-```
+  ```
+  sudo apt install ffmpeg
+  ```
  - *Windows*
-```
- winget install ffmpeg
-```
+  ```
+  winget install ffmpeg
+  ```
 
 **2) Клонирование репозитория**  
 
@@ -75,29 +77,35 @@ cd telegram-stt-tts-bot
 
 **3) Создание и активация виртуального окружения (опционально)**
 
-*Linux*
-```
-python3 -m venv env
-source env/bin/activate
-```
+- *Linux*
+  ```
+  python3 -m venv env
+  source env/bin/activate
+  ```
 
-*Windows*
-```
-python -m venv env
-env\Scripts\activate
-```
+- *Windows CMD*
+  ```
+  python -m venv env
+  env\Scripts\activate
+  ```
 
+- *Windows PowerShell*
+  ```
+  python -m venv env
+  env\Scripts\activate.ps1
+  ```
+  
 **4) Установка зависимостей**  
 
-*С поддержкой CPU*
-```
-pip install -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
-```
+- *С поддержкой CPU*
+  ```
+  pip install -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+  ```
 
-*С поддержкой CUDA 12.4*
-```
-pip install -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
-```
+- *С поддержкой CUDA 12.4*
+  ```
+  pip install -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
+  ```
 
 > [!NOTE]  
 > Для установки `llama-cpp-python` на Windows с поддержкой CUDA нужно предварительно установить [Visual Studio 2022 Community](https://visualstudio.microsoft.com/ru/downloads/) и [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive), как например указано в этой [инструкции](https://github.com/abetlen/llama-cpp-python/discussions/871#discussion-5812096)  
@@ -155,7 +163,6 @@ MODEL_KWARGS = dict(
 
 **2)** Для изменения параметров генерации ответа отредактировать словарь `GENERATION_KWARGS`  
 [Документация](https://llama-cpp-python.readthedocs.io/en/latest/api-reference/#llama_cpp.Llama.create_chat_completion) `llama-cpp-python` по параметрам генерации
-
 
 
 ---
