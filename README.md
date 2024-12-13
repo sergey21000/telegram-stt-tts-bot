@@ -157,8 +157,8 @@ MODEL_KWARGS = dict(
 ``` 
 
 Где искать LLM модели в формате GGUF
-- [bartowski](https://huggingface.co/bartowski?search_models=GGUF) 
-- [mradermacher](https://huggingface.co/mradermacher?search_models=GGUF) 
+- [bartowski](https://huggingface.co/bartowski) 
+- [mradermacher](https://huggingface.co/mradermacher) 
 - [поиск на HuggingFace](https://huggingface.co/models?pipeline_tag=text-generation&library=gguf&sort=trending)
 
 **2)** Для изменения параметров генерации ответа отредактировать словарь `GENERATION_KWARGS`  
