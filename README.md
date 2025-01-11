@@ -6,7 +6,7 @@
 Telegram бот с поддержкой голосового и текстового общения, использующий технологии распознавания и синтеза речи  
 Позволяет отправлять сообщения голосом или текстом и получать ответы в обоих форматах  
 
-В Google Colab <a href="https://colab.research.google.com/github/sergey21000/telegram-stt-tts-bot/blob/main/Chatbot_Telegram_TTS_STT_llamacpp_Docker.ipynb"><img src="https://img.shields.io/static/v1?message=Open%20in%20Colab&logo=googlecolab&labelColor=5c5c5c&color=0f80c1&label=%20" alt="Open in Colab"></a> ноутбуке находится код приложения с комментариями, демонстрация пошагового инференса моделей для генерации текста, преобразования текста в речь (TTS) и распознавания речи (STT), а также пример запуска бота в одной ячейке
+В Google Colab <a href="https://colab.research.google.com/drive/1LhZ6HtJDh_2QFa57HZIy1b5BRYr7WL10"><img src="https://img.shields.io/static/v1?message=Open%20in%20Colab&logo=googlecolab&labelColor=5c5c5c&color=0f80c1&label=%20" alt="Open in Colab"></a> ноутбуке находится код приложения с комментариями, демонстрация пошагового инференса моделей для генерации текста, преобразования текста в речь (TTS) и распознавания речи (STT), а также пример запуска бота в одной ячейке
 
 
 ---
