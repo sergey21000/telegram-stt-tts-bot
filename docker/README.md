@@ -13,7 +13,7 @@
 ## Установка Docker и NVIDIA Container Toolkit на Linux
 
 Установка Docker и Docker Compose
-```
+```sh
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo systemctl enable docker
@@ -22,7 +22,7 @@ newgrp docker
 ```
 
 Установка NVIDIA Container Toolkit (необходимо только для GPU)
-```
+```sh
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
@@ -47,7 +47,7 @@ sudo systemctl restart docker
 ### Запуск через Docker Compose из образа Docker HUB
 
 **1) Клонирование репозитория**  
-```bash
+```sh
 git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
@@ -55,12 +55,12 @@ cd telegram-stt-tts-bot
 Далее перейти в директорию для CPU или CUDA
 
 *Переход в директорию для CPU*
-```
+```sh
 cd docker/cpu
 ```
 
 *Переход в директорию для CUDA*
-```
+```sh
 cd docker/cuda
 ```
 
@@ -68,7 +68,7 @@ cd docker/cuda
 
 Создать файл `.env` в текущей директории, чтобы в переменной `BOT_TOKEN` находился токен Telegram бота, полученный у https://t.me/BotFather  
 Например сделать это через терминал Linux
-```
+```sh
 echo BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4 > .env
 ```
 Пример файла `.env`
@@ -78,23 +78,22 @@ BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
 
 **3) Запуск бота**
 
-```
+```sh
 docker compose up -d
 ```
 
 Остановка бота
-
-```
+```sh
 docker compose stop
 ```
 
 Повторный запуск бота
-```
+```sh
 docker compose start
 ```
 
 Остановка бота и удаление контейнера
-```
+```sh
 docker compose down
 ```
 
@@ -114,7 +113,7 @@ BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
 **2) Запуск бота**
 
 *С поддержкой CPU*
-```
+```sh
 docker run -it \
     -v ./llm_model:/app/llm_model \
     -v ./vosk_models:/app/vosk_models \
@@ -125,7 +124,7 @@ docker run -it \
 ```
 
 *С поддержкой CUDA 12.4*
-```
+```sh
 docker run -it --gpus all \
     -v ./llm_model:/app/llm_model \
     -v ./vosk_models:/app/vosk_models \
@@ -137,7 +136,7 @@ docker run -it --gpus all \
 
 **2) Остановка бота** (указать `bot-cpu` или `bot-cuda`)
 
-```
+```sh
 docker stop bot-cpu
 ```
 
@@ -146,7 +145,7 @@ docker stop bot-cpu
 ### Сборка своего образа и запуск через Docker
 
 **1) Клонирование репозитория**  
-```bash
+```sh
 git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
@@ -156,12 +155,12 @@ cd telegram-stt-tts-bot
 Сборка образа
 
 *С поддержкой CPU*
-```
+```sh
 docker build -t telegram-stt-tts-bot:cpu -f docker/cpu/Dockerfile .
 ```
 
 *С поддержкой CUDA*
-```
+```sh
 docker build -t telegram-stt-tts-bot:cuda -f docker/cuda/Dockerfile .
 ```
 
@@ -176,7 +175,7 @@ BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
 **4) Запуск контейнера**
 
 *С поддержкой CPU*
-```
+```sh
 docker run -it \
     -v ./llm_model:/app/llm_model \
     -v ./vosk_models:/app/vosk_models \
@@ -187,7 +186,7 @@ docker run -it \
 ```
 
 *С поддержкой CUDA*
-```
+```sh
 docker run -it --gpus all \
     -v ./llm_model:/app/llm_model \
     -v ./vosk_models:/app/vosk_models \
@@ -202,7 +201,7 @@ docker run -it --gpus all \
 ### Сборка своего образа и запуск через Docker Compose
 
 **1) Клонирование репозитория**  
-```bash
+```sh
 git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
@@ -210,12 +209,12 @@ cd telegram-stt-tts-bot
 Далее перейти в директорию для CPU или CUDA
 
 *Переход в директорию с `Dockerfile` для CPU*
-```
+```sh
 cd docker/cpu
 ```
 
 *Переход в директорию с `Dockerfile` для CUDA*
-```
+```sh
 cd docker/cuda
 ```
 
@@ -273,12 +272,12 @@ services:
 ```
 
 Сборка образа
-```
+```sh
 docker compose build
 ```
 
 **4) Запуск контейнера**
-```
+```sh
 docker compose up -d
 ```
 
@@ -286,36 +285,36 @@ docker compose up -d
 *Другие команды*
 
 Запуск контейнера с принудительной пересборкой
-```
+```sh
 docker compose up -d --build
 ```
 
 Просмотр запущенных контейнеров
-```
+```sh
 docker ps
 ```
 
 Просмотр логов
-```
+```sh
 docker compose logs
 ```
 
 Просмотр логов в реальном времени
-```
+```sh
 docker compose logs -f
 ```
 
 Остановка контейнера
-```
+```sh
 docker compose stop
 ```
 
 Повторный запуск контейнера
-```
+```sh
 docker compose start
 ```
 
 Остановка и удаление контейнера
-```
+```sh
 docker compose down
 ```
