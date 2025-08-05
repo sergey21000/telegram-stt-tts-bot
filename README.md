@@ -60,17 +60,17 @@ Telegram бот с поддержкой голосового и текстово
 **1) Установка `ffmpeg`**
 
  - *Linux*
-  ```
+  ```sh
   sudo apt install ffmpeg
   ```
  - *Windows*
-  ```
+  ```sh
   winget install ffmpeg
   ```
 
 **2) Клонирование репозитория**  
 
-```
+```sh
 git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
@@ -78,19 +78,19 @@ cd telegram-stt-tts-bot
 **3) Создание и активация виртуального окружения (опционально)**
 
 - *Linux*
-  ```
+  ```sh
   python3 -m venv env
   source env/bin/activate
   ```
 
 - *Windows CMD*
-  ```
+  ```sh
   python -m venv env
   env\Scripts\activate
   ```
 
 - *Windows PowerShell*
-  ```
+  ```powershell
   python -m venv env
   env\Scripts\activate.ps1
   ```
@@ -98,12 +98,12 @@ cd telegram-stt-tts-bot
 **4) Установка зависимостей**  
 
 - *С поддержкой CPU*
-  ```
+  ```sh
   pip install -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
   ```
 
 - *С поддержкой CUDA 12.4*
-  ```
+  ```sh
   pip install -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
   ```
 
@@ -111,7 +111,7 @@ cd telegram-stt-tts-bot
 > Для установки `llama-cpp-python` на Windows с поддержкой CUDA нужно предварительно установить [Visual Studio 2022 Community](https://visualstudio.microsoft.com/ru/downloads/) и [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive), как например указано в этой [инструкции](https://github.com/abetlen/llama-cpp-python/discussions/871#discussion-5812096)  
 
 Для полной переустановки использовать `--force-reinstall`
-```
+```sh
 pip install --force-reinstall --no-cache-dir -r requirements.txt --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
 ```
 
@@ -120,7 +120,7 @@ pip install --force-reinstall --no-cache-dir -r requirements.txt --extra-index-u
 **5) Установка токена бота**
 
 Установить в переменую `BOT_TOKEN` в файле `.env` токен бота, полученный у https://t.me/BotFather
-```
+```env
 BOT_TOKEN=your_token
 ```
 Опционально - выбрать модель и настроить ее параметры запуска, а так же параметры генерации текста в файле `config.py`  
@@ -128,7 +128,7 @@ BOT_TOKEN=your_token
 
 **6) Запуск бота**  
 
-```
+```sh
 python3 app.py
 ```
 
@@ -159,7 +159,7 @@ MODEL_KWARGS = dict(
 Где искать LLM модели в формате GGUF
 - [bartowski](https://huggingface.co/bartowski) 
 - [mradermacher](https://huggingface.co/mradermacher) 
-- [Поиск на HuggingFace](https://huggingface.co/models?pipeline_tag=text-generation&library=gguf&sort=trending)
+- [поиск на HuggingFace](https://huggingface.co/models?pipeline_tag=text-generation&library=gguf&sort=trending)
 
 **2)** Для изменения параметров генерации ответа отредактировать словарь `GENERATION_KWARGS`  
 [Документация](https://llama-cpp-python.readthedocs.io/en/latest/api-reference/#llama_cpp.Llama.create_chat_completion) `llama-cpp-python` по параметрам генерации
