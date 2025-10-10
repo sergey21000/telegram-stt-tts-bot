@@ -1,0 +1,22 @@
+FROM python:3.12 AS builder
+
+COPY requirements/base.txt requirements/cpu.txt .
+RUN pip wheel --no-cache-dir --wheel-dir /wheels -r cpu.txt
+
+
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	libgomp1 ffmpeg \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+COPY --from=builder /wheels /wheels
+RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
+
+WORKDIR /app
+COPY bot bot
+COPY config config
+COPY main.py .
+
+CMD ["python3", "main.py"]

@@ -1,0 +1,10 @@
+services:
+  gradio-app:
+    container_name: stt-tts-bot
+    restart: on-failure
+    volumes:
+      - ../data:/app/data
+      - ../config:/app/config
+    env_file:
+      - path: ../.env
+        required: true

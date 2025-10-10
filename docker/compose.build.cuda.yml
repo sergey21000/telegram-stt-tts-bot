@@ -1,0 +1,16 @@
+services:
+  gradio-app:
+    extends:
+      file: compose.base.yml
+      service: stt-tts-bot
+    build:
+      context: ..
+      dockerfile: Dockerfile-cuda
+    image: stt-tts-bot:cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

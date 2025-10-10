@@ -1,0 +1,6 @@
+services:
+  gradio-app:
+    extends:
+      file: compose.base.yml
+      service: stt-tts-bot
+    image: ghcr.io/sergey21000/telegram-stt-tts-bot:main-cpu
