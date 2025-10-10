@@ -9,7 +9,7 @@ env:
   PYTHONUTF8: 1
   LLM_REPO_ID: bartowski/Qwen_Qwen3-0.6B-GGUF
   LLM_FILENAME: Qwen_Qwen3-0.6B-Q4_K_M.gguf
-  TOKENIZER_REPO_ID: sergeyzh/rubert-tiny-turbo
+  TOKENIZER_REPO_ID: Qwen/Qwen3-0.6B
   TTS_MODEL_URL: https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip
   STT_MODEL_URL: https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip
 
