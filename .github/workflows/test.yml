@@ -87,6 +87,9 @@ jobs:
           python -m pip install -r requirements/linux-3.12-cpu.txt
           python -m pip install -r requirements/test.txt
 
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+  
       - name: Test with pytest
         run: |
           python -m pytest -vs
@@ -136,6 +139,9 @@ jobs:
           python -m pip install -r requirements/win-3.12-cpu.txt
           python -m pip install -r requirements/test.txt
 
+      - name: Install ffmpeg
+        run: choco install ffmpeg -y
+        
       - name: Test with pytest
         run: |
           python -m pytest -vs
