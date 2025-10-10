@@ -72,7 +72,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: models
-          path: .
+          path: data
       
       - name: Check models exists
         run: |
@@ -121,7 +121,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: models
-          path: .
+          path: data
 
       - name: Check model exists
         run: |
