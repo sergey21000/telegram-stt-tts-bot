@@ -1,8 +1,8 @@
 services:
-  gradio-app:
+  bot:
     extends:
       file: compose.base.yml
-      service: stt-tts-bot
+      service: bot
     build:
       context: ..
       dockerfile: Dockerfile-cuda

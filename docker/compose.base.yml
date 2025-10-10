@@ -1,5 +1,5 @@
 services:
-  gradio-app:
+  bot:
     container_name: stt-tts-bot
     restart: on-failure
     volumes:
