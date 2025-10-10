@@ -41,7 +41,7 @@ jobs:
 
       - name: Download models
         run: |
-          python bot/init/worker_models.py
+          python -m bot.init.worker_models
           
       - name: Upload models artifact
         uses: actions/upload-artifact@v4
