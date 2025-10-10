@@ -1,0 +1,143 @@
+name: Tests
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: 1
+  LLM_REPO_ID: bartowski/Qwen_Qwen3-0.6B-GGUF
+  LLM_FILENAME: Qwen_Qwen3-0.6B-Q4_K_M.gguf
+  TOKENIZER_REPO_ID: sergeyzh/rubert-tiny-turbo
+  TTS_MODEL_URL: https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip
+  STT_MODEL_URL: https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip
+
+  LLM_MODELS_PATH: data/llm_model
+  SPEECH_MODELS_PATH: data/speech_models
+  TTS_AUDIO_PATH: tts_result_voice.wav
+  
+  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+  ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+
+jobs:
+  download-models:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: 'requirements/cpu.txt'
+          
+      - name: Download models
+        run: |
+          python bot/init/worker_models.py
+          
+      - name: Upload models artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: models
+          path: data
+          overwrite: true
+
+  test-linux:
+    needs: download-models
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: 'requirements/test.txt'
+
+      - name: Download models artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: models
+          path: .
+      
+      - name: Check models exists
+        run: |
+          echo "LLM models:"
+          ls -lh ${{ env.LLM_MODELS_PATH }}
+          echo "Embed models:"
+          ls -lh ${{ env.SPEECH_MODELS_PATH }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements/test.txt
+
+      - name: Test with pytest
+        run: |
+          python -m pytest -vs
+
+      - name: Upload TTS result artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tts-audio-${{ matrix.python-version }}-${{ runner.os }}
+          path: ${{ env.TTS_AUDIO_PATH }}
+          if-no-files-found: ignore
+
+  test-windows:
+    needs: download-models
+    runs-on: windows-2022
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: 'requirements/test.txt'
+
+      - name: Download models artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: models
+          path: .
+
+      - name: Check model exists
+        run: |
+          echo "LLM models:"
+          dir ${{ env.LLM_MODELS_PATH }}
+          echo "Embed models:"
+          dir ${{ env.SPEECH_MODELS_PATH }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements/test.txt
+
+      - name: Test with pytest
+        run: |
+          python -m pytest -vs
+
+      - name: Upload TTS result artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tts-audio-${{ matrix.python-version }}-${{ runner.os }}
+          path: ${{ env.TTS_AUDIO_PATH }}
+          if-no-files-found: ignore
+          retention-days: 1
