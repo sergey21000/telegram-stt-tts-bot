@@ -1,7 +1,7 @@
 FROM python:3.12 AS builder
 
-COPY requirements/base.txt requirements/cpu.txt .
-RUN pip wheel --no-cache-dir --wheel-dir /wheels -r cpu.txt
+COPY requirements/base.txt requirements/linux-3.12-cpu.txt .
+RUN pip wheel --no-cache-dir --wheel-dir /wheels -r linux-3.12-cpu.txt
 
 
 FROM python:3.12-slim
