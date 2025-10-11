@@ -32,6 +32,7 @@ class TextPipeline:
     def clean_text_before_speech(cls, text: str) -> str:
         text = cls.clean_thinking_tags(text)
         text = re.sub(r"[^a-zA-Zа-яА-Я0-9\s.,!?;:()\"'-]", '', text)
+        text = re.sub(r'[\"\'«»]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
         return text
 
@@ -151,3 +152,4 @@ class TextPipeline:
             # with suppress(TelegramBadRequest):
             await response_message.edit_text(text=response_text)
         return response_text
+
