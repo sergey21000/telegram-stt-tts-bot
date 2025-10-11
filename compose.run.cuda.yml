@@ -1,0 +1,13 @@
+services:
+  bot:
+    extends:
+      file: compose.base.yml
+      service: bot
+    image: ghcr.io/sergey21000/telegram-stt-tts-bot:llama-cpp-python-cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
