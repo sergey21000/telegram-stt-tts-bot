@@ -28,6 +28,7 @@ def test_speech_to_speech(models: Models, user_config: UserConfig, text_with_thi
         recognizer=models.recognizer_stt,
         wav_audio_path=str(wav_voice_path),
     )
+    print()
     print(f'{Fore.YELLOW}{Style.BRIGHT}SST text:{Style.RESET_ALL}\n{sst_text}')
     
     assert isinstance(sst_text, str), 'SST text is not a string'
