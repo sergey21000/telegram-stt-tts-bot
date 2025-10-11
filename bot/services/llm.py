@@ -75,6 +75,7 @@ class TextPipeline:
             stream_response = model.create_completion(
                 prompt=formatted_prompt,
                 stream=True,
+                stop=[tokenizer.eos_token],
                 **generation_kwargs,
             )
             for chunk in stream_response:
@@ -152,4 +153,3 @@ class TextPipeline:
             # with suppress(TelegramBadRequest):
             await response_message.edit_text(text=response_text)
         return response_text
-
