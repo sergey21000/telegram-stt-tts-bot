@@ -15,8 +15,8 @@ class Config:
         verbose=False,
     )
     USE_HF_TOKENIZER = os.getenv('USE_HF_TOKENIZER', True)
-    TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', '')
-    # TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', 'unsloth/gemma-3-1b-it')
+    TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', 'unsloth/gemma-3-1b-it')
+    # TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', '')
     if USE_HF_TOKENIZER and not TOKENIZER_REPO_ID:
         TOKENIZER_REPO_ID = LLAMA_MODEL_KWARGS['repo_id'].split('/')[-1].split('-GGUF')[0].replace('_', '/')
         if not repo_exists(TOKENIZER_REPO_ID):
