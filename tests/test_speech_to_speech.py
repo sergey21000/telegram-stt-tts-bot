@@ -58,8 +58,9 @@ def test_speech_to_speech(models: Models, user_config: UserConfig, text_with_thi
     ]), 'The thought tags before the TTS were not removed'
     
     speaker_id = Config.VOICE_NAME_TO_IDX[user_config.voice_name]
-    tts_audio_path = Path(os.getenv('TTS_AUDIO_PATH', 'tts_result_voice.wav'))
+    tts_audio_path = Path(os.getenv('TTS_AUDIO_PATH', 'tests/test_files/tts_result_voice.wav'))
     tts_audio_path.unlink(missing_ok=True)
+    
     SpeechPipeline.text_to_speech(
         synth_tts=models.synth_tts,
         text=llm_text,
