@@ -15,7 +15,7 @@ env:
 
   LLM_MODELS_PATH: data/llm_model
   SPEECH_MODELS_PATH: data/speech_models
-  TTS_AUDIO_PATH: tts_result_voice.wav
+  TTS_AUDIO_PATH: tests/test_files/tts_result_voice.wav
   
   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
   ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
