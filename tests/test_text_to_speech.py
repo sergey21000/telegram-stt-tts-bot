@@ -2,6 +2,7 @@ import os
 import wave
 from pathlib import Path
 
+import pytest
 from colorama import Fore, Style
 
 from bot.types import Models
@@ -31,9 +32,9 @@ def test_text_to_speech(models: Models, user_config: UserConfig, text: str):
         show_thinking=user_config.show_thinking,
     )
     
-    print(f'{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
+    print(f'\n{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
     llm_text = TextPipeline.clean_text_before_speech(text=llm_text)
-    print(f'{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
+    print(f'\n{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
     
     assert all([
         tag not in llm_text for tag in TextPipeline.all_thinking_tags

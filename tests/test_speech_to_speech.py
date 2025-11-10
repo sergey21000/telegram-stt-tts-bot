@@ -2,6 +2,7 @@ import os
 import wave
 from pathlib import Path
 
+import pytest
 from colorama import Fore, Style
 
 from bot.types import Models
@@ -29,7 +30,7 @@ def test_speech_to_speech(models: Models, user_config: UserConfig, text_with_thi
         wav_audio_path=str(wav_voice_path),
     )
     print()
-    print(f'{Fore.YELLOW}{Style.BRIGHT}SST text:{Style.RESET_ALL}\n{sst_text}')
+    print(f'\n{Fore.YELLOW}{Style.BRIGHT}SST text:{Style.RESET_ALL}\n{sst_text}')
     
     assert isinstance(sst_text, str), 'SST text is not a string'
     assert 165 < len(sst_text) < 170, 'SST text contains more or fewer characters than the audio'
@@ -49,9 +50,9 @@ def test_speech_to_speech(models: Models, user_config: UserConfig, text_with_thi
     )
     
     llm_text = text_with_thinking + llm_text
-    print(f'{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
+    print(f'\n{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
     llm_text = TextPipeline.clean_text_before_speech(text=llm_text)
-    print(f'{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
+    print(f'\n{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
     
     assert all([
         tag not in llm_text for tag in TextPipeline.all_thinking_tags
