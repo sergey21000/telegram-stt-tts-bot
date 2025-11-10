@@ -28,9 +28,34 @@ class TextPipeline:
             text = re.sub(pattern, '', text, flags=re.DOTALL)
         return text
 
+    @staticmethod
+    def transliterate_english_to_russian(text: str) -> str:
+        translit_map = {
+            'a': 'а', 'b': 'б', 'c': 'к', 'd': 'д', 'e': 'е',
+            'f': 'ф', 'g': 'г', 'h': 'х', 'i': 'и', 'j': 'ж',
+            'k': 'к', 'l': 'л', 'm': 'м', 'n': 'н', 'o': 'о',
+            'p': 'п', 'q': 'к', 'r': 'р', 's': 'с', 't': 'т',
+            'u': 'у', 'v': 'в', 'w': 'в', 'x': 'кс', 'y': 'й',
+            'z': 'з',
+            'A': 'А', 'B': 'Б', 'C': 'К', 'D': 'Д', 'E': 'Е',
+            'F': 'Ф', 'G': 'Г', 'H': 'Х', 'I': 'И', 'J': 'Ж',
+            'K': 'К', 'L': 'Л', 'M': 'М', 'N': 'Н', 'O': 'О',
+            'P': 'П', 'Q': 'К', 'R': 'Р', 'S': 'С', 'T': 'Т',
+            'U': 'У', 'V': 'В', 'W': 'В', 'X': 'КС', 'Y': 'Й',
+            'Z': 'З',
+            '0': 'ноль', '1': 'один', '2': 'два', '3': 'три', '4': 'четыре',
+            '5': 'пять', '6': 'шесть', '7': 'семь', '8': 'восемь', '9': 'девять',
+        }
+        
+        def transliterate_char(char):
+            return translit_map.get(char, char)
+        
+        return ''.join(transliterate_char(c) for c in text)
+        
     @classmethod
     def clean_text_before_speech(cls, text: str) -> str:
         text = cls.clean_thinking_tags(text)
+        text = cls.transliterate_english_to_russian(text)
         text = re.sub(r"[^a-zA-Zа-яА-Я0-9\s.,!?;:()\"'-]", '', text)
         text = re.sub(r'[\"\'«»]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
@@ -75,6 +100,7 @@ class TextPipeline:
             stream_response = model.create_completion(
                 prompt=formatted_prompt,
                 stream=True,
+                stop=[tokenizer.eos_token],
                 **generation_kwargs,
             )
             for chunk in stream_response:
@@ -152,4 +178,3 @@ class TextPipeline:
             # with suppress(TelegramBadRequest):
             await response_message.edit_text(text=response_text)
         return response_text
-
