@@ -41,8 +41,8 @@ def test_text_to_speech(models: Models, user_config: UserConfig, text: str):
     
     speaker_id = Config.VOICE_NAME_TO_IDX[user_config.voice_name]
     tts_audio_path = Path(
-        os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')) / f'tts_result_voice_{text[:6]}.wav')
-    )
+        os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')) / 
+        f'tts_result_voice_{text[:6]}.wav'
     tts_audio_path.unlink(missing_ok=True)
     
     SpeechPipeline.text_to_speech(
