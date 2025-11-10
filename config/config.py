@@ -28,7 +28,8 @@ class Config:
     VOICE_IDX_TO_NAME = {v: k for k, v in VOICE_NAME_TO_IDX.items()}
     SPEECH_MODELS_DIR = 'data/speech_models'
     # https://alphacephei.com/vosk/models/model-list.json
-    TTS_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip'
-    # TTS_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.9-multi.zip'
+    # TTS_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip'
+    TTS_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.9-multi.zip'
     # https://alphacephei.com/vosk/models
     STT_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip'
+
