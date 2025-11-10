@@ -15,8 +15,7 @@ env:
 
   LLM_MODELS_PATH: data/llm_model
   SPEECH_MODELS_PATH: data/speech_models
-  TTS_AUDIO_PATH: tests/test_files/tts_result_voice.wav
-  
+  TTS_AUDIO_DIR: tests/test_files
   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
   ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
 
@@ -99,7 +98,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tts-audio-${{ matrix.python-version }}-${{ runner.os }}
-          path: ${{ env.TTS_AUDIO_PATH }}
+          path: ${{ env.TTS_AUDIO_DIR }}
           if-no-files-found: ignore
 
   test-windows:
@@ -151,6 +150,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tts-audio-${{ matrix.python-version }}-${{ runner.os }}
-          path: ${{ env.TTS_AUDIO_PATH }}
+          path: ${{ env.TTS_AUDIO_DIR }}
           if-no-files-found: ignore
           retention-days: 1
