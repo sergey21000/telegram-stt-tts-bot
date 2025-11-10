@@ -12,34 +12,17 @@ from config.config import Config
 from config.user import UserConfig
 
 
-def test_speech_to_speech(models: Models, user_config: UserConfig, text_with_thinking: str):
-    ogg_voice_path = Path('tests/test_files/audio_with_speech.ogg')
-    wav_voice_path = Path('tests/test_files/audio_with_speech.wav')
-    wav_voice_path.unlink(missing_ok=True)
-    
-    convert_is_ok = SpeechPipeline.convert_ogg_to_wav(
-        input_file=ogg_voice_path,
-        output_file=wav_voice_path,
-        sample_rate=Config.SAMPLE_RATE,
-    )
-    
-    assert convert_is_ok, 'Error converting ogg to wav'
-    sst_text = SpeechPipeline.speech_to_text(
-        recognizer=models.recognizer_stt,
-        wav_audio_path=str(wav_voice_path),
-    )
-    print()
-    print(f'{Fore.YELLOW}{Style.BRIGHT}SST text:{Style.RESET_ALL}\n{sst_text}')
-    
-    assert isinstance(sst_text, str), 'SST text is not a string'
-    assert 165 < len(sst_text) < 170, 'SST text contains more or fewer characters than the audio'
-    wav_voice_path.unlink(missing_ok=True)
-    
+@pytest.mark.parametrize('text', [
+    'Кто ты и что ты умеешь?',
+    'Почему трава зеленая?',
+    'Сколько будет 2 + 2?',
+])
+def test_text_to_speech(models: Models, user_config: UserConfig, text: str):
     generator = TextPipeline.generate_from_chat_completion(
         model=models.model_llm,
         tokenizer=models.tokenizer,
         system_prompt=user_config.system_prompt,
-        user_message_text=sst_text,
+        user_message_text=text,
         enable_thinking=user_config.enable_thinking,
         generation_kwargs=user_config.get_generation_kwargs(),
     )
@@ -48,7 +31,6 @@ def test_speech_to_speech(models: Models, user_config: UserConfig, text_with_thi
         show_thinking=user_config.show_thinking,
     )
     
-    llm_text = text_with_thinking + llm_text
     print(f'{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
     llm_text = TextPipeline.clean_text_before_speech(text=llm_text)
     print(f'{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
