@@ -28,7 +28,6 @@ async def settings(message: Message, state: FSMContext, texts: Texts):
         reply_markup=KbBuilder.main_kb(texts),
         parse_mode=ParseMode.HTML,
     )
-    await state.set_state(SettingsState.user_settings)
 
 
 @router.callback_query(F.data == texts.MainMenuButtons.help.get_callback_name())
@@ -121,3 +120,4 @@ async def update_parameter_from_command(message: Message, command: CommandObject
         updated_name=parameter_dict['parameter_name'],
         updated_value=updated_value,
     ))
+
