@@ -62,6 +62,7 @@ class KbBuilder:
                     ),
                     callback_data=call_name,
                 )
-        cls.add_btn(builder=builder, enum=texts.BackButton.back_to_main_menu)
+        cls.add_btn(builder=builder, enum=btn_texts.BackButton.back_to_main_menu)
         builder.adjust(2)
         return builder.as_markup()
+
