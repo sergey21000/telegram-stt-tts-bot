@@ -47,6 +47,13 @@ jobs:
     runs-on: ubuntu-24.04
     if: ${{ github.event.inputs.build_target == 'cuda' || github.event.inputs.build_target == 'both' }}
     steps:
+      - name: Clean up disk space before build
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          docker system prune -af || true
+          
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -70,3 +77,4 @@ jobs:
           platforms: linux/amd64
           tags: |
             ghcr.io/${{ github.repository }}:${{ github.ref_name }}-cuda
+
