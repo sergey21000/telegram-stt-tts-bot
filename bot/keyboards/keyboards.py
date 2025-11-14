@@ -1,16 +1,11 @@
 from typing import Type
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from bot.kb_parameters.base import BaseKbParameters
 from bot.texts.lang_enum import Langs
 from bot.texts.languages import Texts
 from bot.texts.base_enums import CallbackEnum
-from bot.texts.localization import Localization
 from config.user import UserConfig
-
-
-texts: Texts = Localization.get_texts_by_lang()
 
 
 class KbBuilder:
@@ -48,7 +43,13 @@ class KbBuilder:
         return builder.as_markup()
 
     @classmethod
-    def kb_from_config(cls, kb_parameters: BaseKbParameters, config: UserConfig, btn_texts: Type | dict = {}):
+    def kb_from_config(
+        cls,
+        kb_parameters: BaseKbParameters,
+        config: UserConfig,
+        texts: Texts,
+        btn_texts: Type,
+    ):
         builder = InlineKeyboardBuilder()
         config_dict = config.to_dict()
         for call_name, kb_parameter in kb_parameters.callbacks.items():
@@ -62,7 +63,6 @@ class KbBuilder:
                     ),
                     callback_data=call_name,
                 )
-        cls.add_btn(builder=builder, enum=btn_texts.BackButton.back_to_main_menu)
+        cls.add_btn(builder=builder, enum=texts.BackButton.back_to_main_menu)
         builder.adjust(2)
         return builder.as_markup()
-
