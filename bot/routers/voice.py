@@ -31,6 +31,7 @@ async def voice_settings(callback: CallbackQuery, state: FSMContext, db: DataBas
         reply_markup=KbBuilder.kb_from_config(
             kb_parameters=KbParameters.voice,
             config=user_config,
+            texts=texts,
             btn_texts=texts.UserBtnTexts,
         )
     )
@@ -52,6 +53,7 @@ async def change_voice_settings(callback: CallbackQuery, db: DataBase, texts: Te
         reply_markup=KbBuilder.kb_from_config(
             kb_parameters=KbParameters.voice,
             config=user_config,
+            texts=texts,
             btn_texts=texts.UserBtnTexts,
         )
     )

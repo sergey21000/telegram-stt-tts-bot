@@ -22,7 +22,7 @@ texts: Texts = Localization.get_texts_by_lang()
 
 
 @router.message(Command('help'))
-async def settings(message: Message, state: FSMContext, texts: Texts):
+async def help(message: Message, state: FSMContext, texts: Texts):
     await message.answer(
         text=texts.MainKbMessages.get_help_info(commands_info=texts.BotCommands.commands_info),
         reply_markup=KbBuilder.main_kb(texts),
@@ -47,6 +47,7 @@ async def settings(message: Message, state: FSMContext, db: DataBase, texts: Tex
         reply_markup=KbBuilder.kb_from_config(
             kb_parameters=KbParameters.user,
             config=user_config,
+            texts=texts,
             btn_texts=texts.UserBtnTexts,
         )
     )
@@ -120,4 +121,3 @@ async def update_parameter_from_command(message: Message, command: CommandObject
         updated_name=parameter_dict['parameter_name'],
         updated_value=updated_value,
     ))
-

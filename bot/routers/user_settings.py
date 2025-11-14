@@ -31,6 +31,7 @@ async def user_settings(callback: CallbackQuery, state: FSMContext, db: DataBase
         reply_markup=KbBuilder.kb_from_config(
             kb_parameters=KbParameters.user,
             config=user_config,
+            texts=texts,
             btn_texts=texts.UserBtnTexts,
         )
     )
@@ -67,6 +68,7 @@ async def change_user_settings(callback: CallbackQuery, state: FSMContext, bot: 
         reply_markup=KbBuilder.kb_from_config(
             kb_parameters=KbParameters.user,
             config=user_config,
+            texts=texts,
             btn_texts=texts.UserBtnTexts,
         )
     )
