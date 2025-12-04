@@ -26,21 +26,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
-          python-version: '3.12'
-          cache: 'pip'
-          cache-dependency-path: 'requirements/linux-3.12-cpu.txt'
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements/linux-3.12-cpu.txt
+          uv venv
+          uv pip install -r requirements/linux-3.12-cpu.txt
 
       - name: Download models
         run: |
-          python -m bot.init.worker_models
+          uv run python -m bot.init.worker_models
           
       - name: Upload models artifact
         uses: actions/upload-artifact@v4
@@ -60,13 +61,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-          cache-dependency-path: 'requirements/linux-3.12-cpu.txt'
-
       - name: Download models artifact
         uses: actions/download-artifact@v4
         with:
@@ -80,18 +74,27 @@ jobs:
           echo "Speech models:"
           ls -lh ${{ env.SPEECH_MODELS_PATH }}
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: |
+          uv python install ${{ matrix.python-version }}
+          uv venv
+        
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements/linux-3.12-cpu.txt
-          python -m pip install -r requirements/test.txt
+          uv run python -m pip install -r requirements/linux-3.12-cpu.txt
+          uv run python -m pip install -r requirements/test.txt
 
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
   
       - name: Test with pytest
         run: |
-          python -m pytest -vs
+          uv run python -m pytest -vs
 
       - name: Upload TTS result artifact
         if: always()
@@ -112,12 +115,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-          cache-dependency-path: 'requirements/win-3.12-cpu.txt'
+      # - name: Set up Python ${{ matrix.python-version }}
+        # uses: actions/setup-python@v5
+        # with:
+          # python-version: ${{ matrix.python-version }}
+          # cache: 'pip'
+          # cache-dependency-path: 'requirements/win-3.12-cpu.txt'
 
       - name: Download models artifact
         uses: actions/download-artifact@v4
@@ -132,18 +135,22 @@ jobs:
           echo "Speech models:"
           dir ${{ env.SPEECH_MODELS_PATH }}
 
-      - name: Install dependencies
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Set up Python
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements/win-3.12-cpu.txt
-          python -m pip install -r requirements/test.txt
+          uv python install ${{ matrix.python-version }}
+          uv venv
 
       - name: Install ffmpeg
         run: choco install ffmpeg -y
         
       - name: Test with pytest
         run: |
-          python -m pytest -vs
+          uv run python -m pytest -vs
 
       - name: Upload TTS result artifact
         if: always()
