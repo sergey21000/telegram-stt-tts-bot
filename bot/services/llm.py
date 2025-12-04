@@ -8,6 +8,8 @@ from aiogram.types import Message
 from transformers.tokenization_utils_base import PreTrainedTokenizerBase
 from llama_cpp import Llama
 
+from config.config import Config
+
 
 logger = logging.getLogger(__name__)
 
@@ -169,6 +171,8 @@ class TextPipeline:
         async for response_text in cls.astream_llm_response(generator=generator, show_thinking=show_thinking):
             if not response_text.strip() or (response_text.strip() == response_message_text.strip()):
                 continue
+            if len(response_text) >= Config.MAX_N_CHARS_IN_MESSAGE:
+                return response_text
             now = time.monotonic()
             if now - last_edit_time < editing_frequency:
                 continue

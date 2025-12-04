@@ -1,0 +1,2 @@
+https://github.com/sergey21000/llama-cpp-python-wheels/releases/download/v0.3.16-cu128-win/llama_cpp_python-0.3.16-cp312-cp312-win_amd64.whl
+-r base.txt
