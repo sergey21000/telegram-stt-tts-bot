@@ -48,7 +48,7 @@ Telegram бот с поддержкой голосового и текстово
 - [ffmpeg](https://ffmpeg.org/) для конвертации голосовых сообщений из формата `.ogg` в формат `wave`
 - [chatgpt-md-converter](https://github.com/Latand/formatter-chatgpt-telegram) для преобразования ответов LLM из формата Markdown в формат HTML, совместимый с Telegram bot API
 
-Работоспособность приложения проверялась на Ubuntu 22.04 (python 3.12) и Windows 10 (python 3.12)  
+Работоспособность проекта проверялась на Ubuntu 22.04 (python 3.12) и Windows 10 (python 3.12)  
 
 
 ## 📁 Структура проекта
@@ -129,7 +129,7 @@ Telegram бот с поддержкой голосового и текстово
 │   |── cpu.txt                  - библотеки для инференса моделей на CPU + базовые
 │   |── cuda.txt                 - библотеки для инференса моделей на CUDA + базовые
 │   └── test.txt                 - библиотеки для тестирования + cpu
-│── 📁 tests/                    - тесты - ToDo
+│── 📁 tests/                    - тесты
 │    └── test_simple.py          - простой тест запуска бота и отправки сообщения юзеру
 ├── .env                         - файл с токеном бота которыый нужно обязательно создать перед запуском
 ├── .env.example                 - пример файла `.env` с токеном бота
@@ -204,7 +204,7 @@ docker-compose up
   sudo apt install ffmpeg
   ```
  - *Windows*
-  ```sh
+  ```ps1
   winget install ffmpeg
   ```
 
@@ -217,38 +217,72 @@ cd telegram-stt-tts-bot
 
 **3) Создание и активация виртуального окружения (опционально)**
 
+<ins><b>Через Pip</b></ins>
+
 - *Linux*
   ```sh
-  python3 -m venv env
-  source env/bin/activate
-  ```
-
-- *Windows CMD*
-  ```sh
-  python -m venv env
-  env\Scripts\activate
+  python3 -m venv .venv
+  source .venv/bin/activate
   ```
 
 - *Windows PowerShell*
-  ```powershell
-  python -m venv env
-  env\Scripts\activate.ps1
+  ```ps1
+  python -m venv .venv
+  .venv\Scripts\activate.ps1
   ```
-  
+
+<ins><b>Через [UV](https://docs.astral.sh/uv/getting-started/installation/)</b></ins>
+
+*Опициональная установка конкретной версии Python*
+```
+uv python install 3.12
+```
+
+*Linux/Windows*
+```sh
+uv venv
+```
+
 **4) Установка зависимостей**  
+
+<ins><b>Через Pip</b></ins>
 
 - *С поддержкой CPU*
   ```sh
   pip install -r requirements/cpu.txt
   ```
 
-- *С поддержкой CUDA 12.4*
+- *С поддержкой CUDA 12.4 (Linux)*
   ```sh
   pip install -r requirements/cuda.txt
   ```
 
+- *С поддержкой CUDA 12.4 (Windows, Python 3.12)*
+  ```ps1
+  pip install -r requirements/win-3.12-cuda.txt
+  ```
+
+<ins><b>Через [UV](https://docs.astral.sh/uv/getting-started/installation/)</b></ins>
+
+- *С поддержкой CPU*
+  ```sh
+  uv pip install -r requirements/cpu.txt
+  ```
+
+- *С поддержкой CUDA 12.4 (Linux)*
+  ```sh
+  uv pip install -r requirements/cuda.txt
+  ```
+
+- *С поддержкой CUDA 12.4 (Windows, Python 3.12)*
+  ```ps1
+  uv pip install -r requirements/win-3.12-cuda.txt
+  ```
+
+Для других версий и систем [собрать llama-cpp-python](https://github.com/abetlen/llama-cpp-python?tab=readme-ov-file#installation) из исходников  
+
 > [!NOTE]  
-> Для установки `llama-cpp-python` на Windows с поддержкой CUDA нужно предварительно установить [Visual Studio 2022 Community](https://visualstudio.microsoft.com/ru/downloads/) и [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive), как например указано в этой [инструкции](https://github.com/abetlen/llama-cpp-python/discussions/871#discussion-5812096)  
+> Для сборки `llama-cpp-python` из исходников на Windows с поддержкой CUDA нужно предварительно установить [Visual Studio 2022 Community](https://visualstudio.microsoft.com/ru/downloads/) и [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive), как например указано в этой [инструкции](https://github.com/abetlen/llama-cpp-python/discussions/871#discussion-5812096)  
 В случае ошибки при установке `llama-cpp-python` воспользоваться поиском по [issue](https://github.com/abetlen/llama-cpp-python/issues), например [issues/1963](https://github.com/abetlen/llama-cpp-python/issues/1963) с командой установки `llama-cpp-python` на Windows 11  
 [Инструкции](https://github.com/abetlen/llama-cpp-python?tab=readme-ov-file#installation-configuration) по установке `llama-cpp-python` для других версий и систем
 
@@ -263,7 +297,7 @@ BOT_TOKEN=your_token
 **6) Запуск бота**  
 
 ```sh
-python3 app.py
+python app.py
 ```
 
 При первом запуске произойдет загрузка следующих моделей:
@@ -354,4 +388,3 @@ https://github.com/alphacep/vosk-tts/issues/19
 ## Лицензия
 
 Этот проект лицензирован на условиях лицензии [MIT](./LICENSE).
-

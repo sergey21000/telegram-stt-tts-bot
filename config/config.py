@@ -16,6 +16,7 @@ class Config:
     )
     USE_HF_TOKENIZER = os.getenv('USE_HF_TOKENIZER', True)
     TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', 'unsloth/gemma-3-1b-it')
+    # TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', '')
     if USE_HF_TOKENIZER and not TOKENIZER_REPO_ID:
         TOKENIZER_REPO_ID = LLAMA_MODEL_KWARGS['repo_id'].split('/')[-1].split('-GGUF')[0].replace('_', '/')
         if not repo_exists(TOKENIZER_REPO_ID):
@@ -23,6 +24,7 @@ class Config:
     BOT_DB_PATH = os.getenv('BOT_DB_PATH', 'data/bot_db/users.db')
     DEFAULT_USER_LANG = os.getenv('DEFAULT_USER_LANG', 'ru')
     ADMIN_CHAT_ID = os.getenv('ADMIN_CHAT_ID', None)
+    MAX_N_CHARS_IN_MESSAGE = 2180
     SAMPLE_RATE = 24000
     VOICE_NAME_TO_IDX = dict(female_0=0, female_1=1, female_2=2, male_0=3, male_1=4)
     VOICE_IDX_TO_NAME = {v: k for k, v in VOICE_NAME_TO_IDX.items()}
@@ -32,4 +34,3 @@ class Config:
     TTS_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.9-multi.zip'
     # https://alphacephei.com/vosk/models
     STT_MODEL_URL = 'https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip'
-
