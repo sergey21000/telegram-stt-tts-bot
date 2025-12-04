@@ -309,7 +309,7 @@ python main.py
 
 **Запуск тестов**
 ```sh
-pytest -vs .\tests\test_speech_to_speech.py
+pytest -vs
 ```
 
 
