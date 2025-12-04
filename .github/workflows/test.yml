@@ -86,8 +86,8 @@ jobs:
         
       - name: Install dependencies
         run: |
-          uv run python -m pip install -r requirements/linux-3.12-cpu.txt
-          uv run python -m pip install -r requirements/test.txt
+          uv run pip install -r requirements/linux-3.12-cpu.txt
+          uv run pip install -r requirements/test.txt
 
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
@@ -145,6 +145,11 @@ jobs:
           uv python install ${{ matrix.python-version }}
           uv venv
 
+      - name: Install dependencies
+        run: |
+          uv pip install -r requirements/win-3.12-cpu.txt
+          uv pip install -r requirements/test.txt
+          
       - name: Install ffmpeg
         run: choco install ffmpeg -y
         
