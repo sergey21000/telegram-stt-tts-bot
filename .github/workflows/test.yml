@@ -86,8 +86,8 @@ jobs:
         
       - name: Install dependencies
         run: |
-          uv run pip install -r requirements/linux-3.12-cpu.txt
-          uv run pip install -r requirements/test.txt
+          uv pip install -r requirements/linux-3.12-cpu.txt
+          uv pip install -r requirements/test.txt
 
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
@@ -114,13 +114,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # - name: Set up Python ${{ matrix.python-version }}
-        # uses: actions/setup-python@v5
-        # with:
-          # python-version: ${{ matrix.python-version }}
-          # cache: 'pip'
-          # cache-dependency-path: 'requirements/win-3.12-cpu.txt'
 
       - name: Download models artifact
         uses: actions/download-artifact@v4
