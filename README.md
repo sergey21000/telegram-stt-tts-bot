@@ -303,9 +303,9 @@ python main.py
 При первом запуске произойдет загрузка следующих моделей:
 - модель LLM по умолчанию ([gemma-3-1b](https://huggingface.co/bartowski/google_gemma-3-1b-it-GGUF), 2.7 GB) в папку `data/llm_model`
 - модель для распознавания речи ([vvosk-model-small-ru-0.22.zip](https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip), 44.1 Mb), архив с папкой модели будет распакован в папку `speech_models/vosk-model-small-ru-0.22`
-- модель для синтеза речи одна из двух в зависимости от конфига
+- модель для синтеза речи, одна из двух в зависимости от конфига
   - ([vosk-model-tts-ru-0.7-multi.zip](https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip), 129 Mb), архив с папкой модели будет распакован в папку `speech_models/vosk-model-tts-ru-0.7-multi`
-  - ([vosk-model-tts-ru-0.9-multi.zip](https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.9-multi.zip), 129 Mb), архив с папкой модели будет распакован в папку `speech_models/vosk-model-tts-ru-0.9-multi`
+  - ([vosk-model-tts-ru-0.9-multi.zip](https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.9-multi.zip), 746 Mb), архив с папкой модели будет распакован в папку `speech_models/vosk-model-tts-ru-0.9-multi`
 
 **Запуск тестов**
 ```sh
