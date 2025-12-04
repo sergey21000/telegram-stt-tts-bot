@@ -297,7 +297,7 @@ BOT_TOKEN=your_token
 **6) Запуск бота**  
 
 ```sh
-python app.py
+python main.py
 ```
 
 При первом запуске произойдет загрузка следующих моделей:
