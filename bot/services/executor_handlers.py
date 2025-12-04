@@ -75,7 +75,6 @@ async def speech_to_speech_answer_handler(
                 generation_kwargs=user_config.get_generation_kwargs(),
                 show_thinking=user_config.show_thinking,
             ))
-            response_text = response_text[:Config.MAX_N_CHARS_IN_MESSAGE]
             if user_config.answer_with_text:
                 response_text = telegram_format(response_text)
                 await bot_message.edit_text(
