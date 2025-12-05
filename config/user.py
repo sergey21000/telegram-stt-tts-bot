@@ -33,7 +33,7 @@ class UserConfig(BaseConfig):
     enable_thinking: bool = False
     show_thinking: bool = False
     stream_llm_response: bool = False
-    system_prompt: str = ''
+    system_prompt: str = 'Старайся отвечать не слишком длинными сообщениями'
     user_lang: str = 'ru'
     voice_name: str = 'male_1'
     answer_with_voice: bool = True

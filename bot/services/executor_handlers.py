@@ -9,6 +9,7 @@ from aiogram.types import Message
 from aiogram.utils.chat_action import ChatActionSender
 from aiogram.types import FSInputFile
 from chatgpt_md_converter import telegram_format
+from loguru import logger
 
 from bot.services.executor_wrappers import PipelineExecutorWrapper
 from bot.texts.locales.ru import Texts
@@ -78,14 +79,18 @@ async def speech_to_speech_answer_handler(
             response_text = response_text[:Config.MAX_N_CHARS_IN_MESSAGE]
             if user_config.answer_with_text:
                 response_text = telegram_format(response_text)
+                logger.debug(f'len text before bot_message.edit_text: {len(response_text)}')
                 await bot_message.edit_text(
                     text=response_text,
                     disable_notification=disable_notification,
+                    parse_mode='HTML',
                 )
     if user_config.answer_with_voice:
         async with ChatActionSender(bot=bot, chat_id=user_message.from_user.id, action='record_voice'):
             speaker_id = Config.VOICE_NAME_TO_IDX[user_config.voice_name]
             response_text = TextPipeline.clean_text_before_speech(text=response_text)
+            response_text = response_text[:Config.MAX_N_CHARS_IN_MESSAGE]
+            logger.debug(f'len text before tts: {len(response_text)}')
             with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_tts:
                 tts_audio_path = tmp_tts.name
             await loop.run_in_executor(pool, functools.partial(

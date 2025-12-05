@@ -1,13 +1,10 @@
 import asyncio
 import concurrent
-import logging
 from typing import Any, Awaitable, Callable
+from loguru import logger
 
 from config.config import Config
 from bot.init.worker_models import get_worker_models
-
-
-logger = logging.getLogger(__name__)
 
 
 def warmup_func():
@@ -52,7 +49,7 @@ class LimitedLLMQueue:
                         chat_id=Config.ADMIN_CHAT_ID,
                         text=f'❌ Error processing queue function: {e}',
                     )
-                raise e
+                # raise e
             finally:
                 self._active -= 1
                 self.queue.task_done()

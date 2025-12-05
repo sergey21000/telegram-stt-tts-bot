@@ -1,5 +1,6 @@
 import os
-import logging
+from loguru import logger
+
 from llama_cpp import Llama
 from transformers import AutoTokenizer
 from vosk_tts import Model as ModelTTS, Synth
@@ -8,9 +9,6 @@ from vosk import Model as ModelSTT, KaldiRecognizer
 from config.config import Config
 from bot.types import Models
 from bot.utils.downloader import FileDownloader
-
-
-logger = logging.getLogger(__name__)
 
 
 def download_and_init_models():

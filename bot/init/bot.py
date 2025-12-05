@@ -1,8 +1,9 @@
 import os
-import logging
+from loguru import logger
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.client.session.aiohttp import AiohttpSession
 
 from bot.init.db import db
 from bot.middlewares.db import DbMiddleware
@@ -17,10 +18,8 @@ from bot.routers import (
 )
 
 
-logger = logging.getLogger(__name__)
-
-
-bot = Bot(token=os.getenv('BOT_TOKEN'))
+session = AiohttpSession(timeout=300)
+bot = Bot(token=os.getenv('BOT_TOKEN'), session=session)
 dp = Dispatcher(storage=MemoryStorage())
 
 db_middleware = DbMiddleware(db)

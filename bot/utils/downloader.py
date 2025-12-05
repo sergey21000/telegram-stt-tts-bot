@@ -1,12 +1,9 @@
-import logging
 import zipfile
 from pathlib import Path
 
 import requests
 from tqdm import tqdm
-
-
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 class FileDownloader:

@@ -1,17 +1,14 @@
 import os
 import re
-import logging
 import time
 from typing import Any, AsyncIterator, Iterator
 
+from loguru import logger
 from aiogram.types import Message
 from transformers.tokenization_utils_base import PreTrainedTokenizerBase
 from llama_cpp import Llama
 
 from config.config import Config
-
-
-logger = logging.getLogger(__name__)
 
 
 class TextPipeline:
@@ -87,13 +84,14 @@ class TextPipeline:
         enable_thinking: bool,
         generation_kwargs: dict[str, Any],
     ) -> Iterator[str]:
-        logging.debug(f'LLM response generation started, process PID: {os.getpid()}')
+        logger.debug(f'LLM response generation started, process PID: {os.getpid()}')
         support_system_role = cls.is_support_system_role(model.metadata['tokenizer.chat_template'])
         messages = cls._prepare_messages(
             system_prompt=system_prompt,
             support_system_role=support_system_role,
             user_message=user_message_text,
         )
+        logger.debug(f'messages before generating a response: {messages}')
         if tokenizer:
             formatted_prompt = tokenizer.apply_chat_template(
                 conversation=messages,

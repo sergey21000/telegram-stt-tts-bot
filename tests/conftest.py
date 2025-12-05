@@ -1,13 +1,10 @@
-import logging
 import pytest
+from loguru import logger
 
 from bot.types import Models
 from bot.services.llm import TextPipeline
 from bot.init.worker_models import download_and_init_models
 from config.user import UserConfig
-
-
-logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(scope='session')
