@@ -6,7 +6,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile-cuda
-    image: stt-tts-bot:cuda
+    image: local/stt-tts-bot:cuda
     deploy:
       resources:
         reservations:

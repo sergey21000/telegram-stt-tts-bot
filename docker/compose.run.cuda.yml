@@ -3,7 +3,7 @@ services:
     extends:
       file: compose.base.yml
       service: bot
-    image: ghcr.io/sergey21000/telegram-stt-tts-bot:main-cuda
+    image: ghcr.io/sergey21000/telegram-stt-tts-bot:vosk-llama-cpp-python-cuda
     deploy:
       resources:
         reservations:

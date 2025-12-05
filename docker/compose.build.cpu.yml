@@ -6,4 +6,4 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile-cpu
-    image: stt-tts-bot:cpu
+    image: local/stt-tts-bot:cpu
