@@ -34,7 +34,7 @@ async def test_text_to_speech(llm_client: LlamaAsyncClient, user_config: UserCon
         llm_text += text
     
     print(f'\n{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
-    llm_text = TextPipeline.clean_text_before_edge_tts(text=llm_text)
+    llm_text = TextPipeline.clean_thinking_tags(text=llm_text)
     print(f'\n{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
     
     assert all([
@@ -53,6 +53,8 @@ async def test_text_to_speech(llm_client: LlamaAsyncClient, user_config: UserCon
         tts_audio_path=str(tts_audio_path),
     )
     assert tts_audio_path.exists(), 'TTS audio file was not created'
+    wav_header = tts_audio_path.read_bytes()[:4]
+    assert wav_header == b'RIFF', f'Invalid WAV header: {wav_header}'
     assert tts_audio_path.stat().st_size > 44, 'WAV file too small — maybe invalid'
 
     with wave.open(str(tts_audio_path), 'rb') as wf:
