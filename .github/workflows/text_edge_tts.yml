@@ -39,9 +39,9 @@ jobs:
           from pathlib import Path
           
           async def main():
-              audio_path = Path("test.mp3")
-              text = "Проверка связи. Это test."
-              voice="ru-RU-DmitryNeural"
+              audio_path = Path('test.mp3')
+              text = 'Я хочу пожаловаться на систему тестирования подачи жалоб. Это test.'
+              voice='ru-RU-DmitryNeural'
               
               communicate = edge_tts.Communicate(text, voice)
               communicate.save_sync(audio_path)
