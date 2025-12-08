@@ -47,3 +47,13 @@ jobs:
               
           asyncio.run(main())
           EOF
+
+      - name: Upload TTS result artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tts-audio
+          path: test.mp3
+          if-no-files-found: ignore
+          retention-days: 1
+          
