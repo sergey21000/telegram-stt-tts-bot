@@ -1,0 +1,56 @@
+name: Test Edge TTS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-edge-tts:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system deps for Edge TTS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libasound2 libgdk-pixbuf2.0-0 ffmpeg
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install edge-tts
+        run: |
+          pip install edge-tts
+
+      - name: Run Edge TTS test
+        run: |
+          python - << 'EOF'
+          import edge_tts
+          import wave
+          import asyncio
+          import os
+
+          async def main():
+              path = "test.wav"
+              c = edge_tts.Communicate(text="Проверка связи. Это test.", voice="ru-RU-DmitryNeural")
+              with open(path, "wb") as f:
+                  async for chunk in c.stream():
+                      if chunk["type"] == "audio":
+                          f.write(chunk["data"])
+
+              header = open(path, "rb").read(4)
+              print("HEADER:", header)
+              assert header == b"RIFF", "Invalid WAV header"
+
+              with wave.open(path, "rb") as w:
+                  print("Channels:", w.getnchannels())
+                  print("Framerate:", w.getframerate())
+                  print("Frames:", w.getnframes())
+
+              print("Edge TTS works correctly")
+
+          asyncio.run(main())
+          EOF
