@@ -3,7 +3,6 @@ services:
     extends:
       file: compose.yml
       service: bot
-    image: ghcr.io/sergey21000/telegram-stt-tts-bot:main-cuda
 
   llamacpp:
     extends:

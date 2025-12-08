@@ -1,6 +1,6 @@
 services:
   bot:
-    image: ghcr.io/sergey21000/telegram-stt-tts-bot:main-cpu
+    image: ghcr.io/sergey21000/telegram-stt-tts-bot:main
     container_name: stt-tts-bot
     restart: unless-stopped
     volumes:
