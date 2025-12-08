@@ -43,7 +43,7 @@ async def test_text_to_speech(llm_client: LlamaAsyncClient, user_config: UserCon
 
     tts_audio_path = Path(
         os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')
-    ) / f'tts_result_voice_{text[:6]}.wav'
+    ) / f'tts_result_voice_{text[:6]}.mp3'
     tts_audio_path.unlink(missing_ok=True)
     
     await SpeechPipeline.text_to_speech(

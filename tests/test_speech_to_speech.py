@@ -70,7 +70,7 @@ async def test_speech_to_speech(
     
     tts_audio_path = Path(
         os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')
-    ) / f'tts_result_voice_{sst_text[:6]}.wav'
+    ) / f'tts_result_voice_{sst_text[:6]}.mp3'
     tts_audio_path.unlink(missing_ok=True)
 
     await SpeechPipeline.text_to_speech(
