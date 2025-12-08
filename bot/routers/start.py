@@ -18,6 +18,7 @@ async def start(message: Message, state: FSMContext, texts: Texts):
     await message.answer(
         text=texts.MainKbMessages.main_menu,
         reply_markup=KbBuilder.main_kb(texts),
+        parse_mode='HTML',
     )
 
 

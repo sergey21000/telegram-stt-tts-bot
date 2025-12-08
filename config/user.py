@@ -35,11 +35,22 @@ class UserConfig(BaseConfig):
     stream_llm_response: bool = False
     system_prompt: str = 'Старайся отвечать не слишком длинными сообщениями'
     user_lang: str = 'ru'
-    voice_name: str = 'male_1'
+    voice: str = 'en-US-AvaMultilingualNeural'
     answer_with_voice: bool = True
     answer_with_text: bool = True
 
-    def get_generation_kwargs(self) -> dict[str, Any]:
-        generation_keys = ['temperature', 'top_p', 'top_k', 'repeat_penalty', 'max_tokens']
-        generation_kwargs = {k: v for k, v in self.to_dict().items() if k in generation_keys}
-        return generation_kwargs
+    def get_completions_kwargs(self) -> dict[str, Any]:
+        completions_kwargs = dict(
+            temperature=self.temperature,
+            top_p=self.top_p,
+            max_tokens=self.max_tokens,
+            extra_body=dict(
+                top_k=self.top_k,
+                repeat_penalty=self.repeat_penalty,
+                # reasoning_format='none',
+                chat_template_kwargs=dict(
+                    enable_thinking=self.enable_thinking,
+                ),
+            ),
+        )
+        return completions_kwargs

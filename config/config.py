@@ -1,38 +1,16 @@
 import os
-from huggingface_hub import repo_exists
 
 
 class Config:
-    LLAMA_MODEL_KWARGS: dict[str, str | int | float] = dict(
-        repo_id=os.getenv('LLM_REPO_ID', 'bartowski/google_gemma-3-1b-it-GGUF'),
-        filename=os.getenv('LLM_FILENAME', 'google_gemma-3-1b-it-Q8_0.gguf'),
-        # repo_id=os.getenv('REPO_ID', 'bartowski/Qwen_Qwen3-0.6B-GGUF'),
-        # filename=os.getenv('FILENAME', 'Qwen_Qwen3-0.6B-Q4_K_M.gguf'),
-        local_dir=os.getenv('LOCAL_DIR', 'data/llm_model'),
-        cache_dir=os.getenv('LOCAL_DIR', 'data/llm_model'),
-        n_gpu_layers=-1,
-        n_ctx=4096,
-        max_tokens=2048,
-        verbose=False,
-    )
-    USE_HF_TOKENIZER: bool = os.getenv('USE_HF_TOKENIZER', True)
-    TOKENIZER_REPO_ID: str = os.getenv('TOKENIZER_REPO_ID', 'unsloth/gemma-3-1b-it')
-    # TOKENIZER_REPO_ID = os.getenv('TOKENIZER_REPO_ID', '')
-    if USE_HF_TOKENIZER and not TOKENIZER_REPO_ID:
-        TOKENIZER_REPO_ID: str = LLAMA_MODEL_KWARGS['repo_id'].split('/')[-1].split('-GGUF')[0].replace('_', '/')
-        if not repo_exists(TOKENIZER_REPO_ID):
-            raise ValueError(f'HF repo {TOKENIZER_REPO_ID} does not exists')
     BOT_DB_PATH: str = os.getenv('BOT_DB_PATH', 'data/bot_db/users.db')
     DEFAULT_USER_LANG: str = os.getenv('DEFAULT_USER_LANG', 'ru')
     ADMIN_CHAT_ID: str = os.getenv('ADMIN_CHAT_ID', None)
-    MAX_N_CHARS_IN_MESSAGE: int = 1800
-    SAMPLE_RATE: int = 24000
-    VOICE_NAME_TO_IDX: dict[str, int] = dict(female_0=0, female_1=1, female_2=2, male_0=3, male_1=4)
-    VOICE_IDX_TO_NAME: dict[int, str] = {v: k for k, v in VOICE_NAME_TO_IDX.items()}
-    SPEECH_MODELS_DIR: str = 'data/speech_models'
-    # https://alphacephei.com/vosk/models/model-list.json
-    # TTS_MODEL_URL: str = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip'
-    TTS_MODEL_URL: str = 'https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.9-multi.zip'
-    # https://alphacephei.com/vosk/models
-    STT_MODEL_URL: str = 'https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip'
-    LOG_LEVEL: str = 'DEBUG'  # INFO, DEBUG
+    MAX_N_CHARS_BEFORE_TTS: int | None = 2048
+    AVAILABLE_VOICES: list[str] = []
+    LOG_LEVEL: str = 'INFO'  # WARNING, INFO, DEBUG,
+    SAMPLE_RATE_BEFORE_STT: int | None = None
+    IMAGE_RESIZE_SIZE: int | None = 512
+    # https://github.com/ggml-org/llama.cpp/releases
+    LLAMACPP_RELEASE_TAG: str = 'b7300'  # or 'latest'
+    LLAMACPP_PREFER_CUDA_BUILD: bool = os.getenv('LLAMACPP_PREFER_CUDA_BUILD', 'True') in ('True', '1') 
+    OPENAI_BASE_URL: str = os.getenv('OPENAI_BASE_URL', '')

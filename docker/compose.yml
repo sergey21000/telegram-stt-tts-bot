@@ -1,0 +1,38 @@
+services:
+  bot:
+    image: ghcr.io/sergey21000/telegram-stt-tts-bot:main-cpu
+    container_name: stt-tts-bot
+    restart: unless-stopped
+    volumes:
+      - ../data:/app/data
+      - ../config:/app/config
+    environment:
+      - OPENAI_BASE_URL=http://llamacpp:8080/v1
+    env_file:
+      - path: ../.env
+        required: true
+    depends_on:
+      llamacpp:
+        condition: service_healthy 
+
+  llamacpp:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    container_name: llamacpp
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      - LLAMA_ARG_HOST=0.0.0.0
+      - LLAMA_ARG_PORT=8080
+    volumes:
+      - ../data/llm_model:/root/.cache/llama.cpp
+      - ../data/llm_model:/app/data/llm_model
+    env_file:
+      - path: ../env.llamacpp
+        required: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s

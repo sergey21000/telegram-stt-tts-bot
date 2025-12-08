@@ -4,7 +4,7 @@ from aiogram.enums import ParseMode
 
 from bot.kb_parameters.classes import BoolKbParameter
 from bot.texts.languages import Texts
-from bot.kb_parameters.kb_parameters import KbParameters
+from bot.init.kb import KbParameters
 
 
 class CommandParser:

@@ -2,6 +2,7 @@
 /data/
 other/
 *.zip
+env.llamacpp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

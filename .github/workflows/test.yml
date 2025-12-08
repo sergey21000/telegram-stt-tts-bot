@@ -7,15 +7,12 @@ permissions:
 
 env:
   PYTHONUTF8: 1
-  LLM_REPO_ID: bartowski/Qwen_Qwen3-0.6B-GGUF
-  LLM_FILENAME: Qwen_Qwen3-0.6B-Q4_K_M.gguf
-  TOKENIZER_REPO_ID: Qwen/Qwen3-0.6B
-  TTS_MODEL_URL: https://alphacephei.com/vosk/models/vosk-model-tts-ru-0.7-multi.zip
-  STT_MODEL_URL: https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip
-
-  LLM_MODELS_PATH: data/llm_model
-  SPEECH_MODELS_PATH: data/speech_models
+  LLM_MODEL_REPO: bartowski/Qwen_Qwen3-0.6B-GGUF
+  LLM_MODEL_FILE: Qwen_Qwen3-0.6B-Q4_K_M.gguf
+  
+  LLM_MODEL_DIR: data/llm_model
   TTS_AUDIO_DIR: tests/test_files
+  
   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
   ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
 
@@ -32,16 +29,20 @@ jobs:
           enable-cache: true
 
       - name: Set up Python
-        run: uv python install 3.12
-
-      - name: Install dependencies
         run: |
+          uv python install 3.12
           uv venv
-          uv pip install -r requirements/linux-3.12-cpu.txt
+
+      - name: Install huggingface-hub
+        run: uv pip install huggingface-hub[hf_xet]
+
+      - name: Create model directory (need for Windows)
+        run: mkdir -p ${{ env.LLM_MODEL_DIR }}
 
       - name: Download models
         run: |
-          uv run python -m bot.init.worker_models
+          uv run hf download ${{ env.LLM_MODEL_REPO }} ${{ env.LLM_MODEL_FILE }} \
+          --local-dir ${{ env.LLM_MODEL_DIR }}
           
       - name: Upload models artifact
         uses: actions/upload-artifact@v4
@@ -70,9 +71,7 @@ jobs:
       - name: Check models exists
         run: |
           echo "LLM models:"
-          ls -lh ${{ env.LLM_MODELS_PATH }}
-          echo "Speech models:"
-          ls -lh ${{ env.SPEECH_MODELS_PATH }}
+          ls -lh ${{ env.LLM_MODEL_DIR }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
@@ -86,13 +85,14 @@ jobs:
         
       - name: Install dependencies
         run: |
-          uv pip install -r requirements/linux-3.12-cpu.txt
-          uv pip install -r requirements/test.txt
+          uv pip install -r requirements.txt
 
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
   
       - name: Test with pytest
+        env:
+          LLAMA_ARG_MODEL: ${{ env.LLM_MODEL_DIR }}/${{ env.LLM_MODEL_FILE }}
         run: |
           uv run python -m pytest -vs
 
@@ -124,9 +124,7 @@ jobs:
       - name: Check model exists
         run: |
           echo "LLM models:"
-          dir ${{ env.LLM_MODELS_PATH }}
-          echo "Speech models:"
-          dir ${{ env.SPEECH_MODELS_PATH }}
+          dir ${{ env.LLM_MODEL_DIR }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
@@ -140,13 +138,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv pip install -r requirements/win-3.12-cpu.txt
-          uv pip install -r requirements/test.txt
+          uv pip install -r requirements.txt
           
       - name: Install ffmpeg
         run: choco install ffmpeg -y
         
       - name: Test with pytest
+        env:
+          LLAMA_ARG_MODEL: ${{ env.LLM_MODEL_DIR }}/${{ env.LLM_MODEL_FILE }}
         run: |
           uv run python -m pytest -vs
 

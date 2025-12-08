@@ -1,18 +1,23 @@
 import pytest
-from loguru import logger
+from llama_cpp_py import LlamaAsyncServer, LlamaAsyncClient, LlamaReleaseManager
 
 from bot.types import Models
-from bot.services.llm import TextPipeline
-from bot.init.worker_models import download_and_init_models
+from bot.services.text import TextPipeline
+from config.config import Config
 from config.user import UserConfig
 
 
 @pytest.fixture(scope='session')
-def models() -> Models:
-    logger.info('Initializing models for tests')
-    models = download_and_init_models()
-    logger.info('Models initialized successfully')
-    return models
+def llm_client() -> Models:
+    llama_server = LlamaAsyncServer(
+        verbose=True,
+        release_manager=LlamaReleaseManager(
+            tag=Config.LLAMACPP_RELEASE_TAG,
+            priority_patterns=['cpu'],
+            # release_zip_url='https://github.com/ggml-org/llama.cpp/releases/download/b7315/llama-b7315-bin-win-cuda-13.1-x64.zip',
+        ),
+    )
+    return LlamaAsyncClient(openai_base_url=llama_server.openai_base_url)
 
 
 @pytest.fixture

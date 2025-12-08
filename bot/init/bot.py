@@ -18,7 +18,7 @@ from bot.routers import (
 )
 
 
-session = AiohttpSession(timeout=300)
+session = AiohttpSession(timeout=60)
 bot = Bot(token=os.getenv('BOT_TOKEN'), session=session)
 dp = Dispatcher(storage=MemoryStorage())
 

@@ -1,16 +1,12 @@
 services:
   bot:
     extends:
-      file: compose.base.yml
+      file: compose.build.cpu.yml
       service: bot
-    build:
-      context: ..
-      dockerfile: Dockerfile-cuda
-    image: stt-tts-bot:cuda
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+
+  llamacpp:
+    extends:
+      file: compose.yml
+      service: llamacpp
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    gpus: all

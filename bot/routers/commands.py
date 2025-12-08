@@ -5,7 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command, CommandObject
 from bot.database.user_db import DataBase
 from bot.filters.filters import Filters
-from bot.kb_parameters.kb_parameters import KbParameters
+from bot.init.kb import KbParameters
 from bot.keyboards.keyboards import KbBuilder
 from bot.texts.localization import Localization
 from bot.texts.languages import Texts
@@ -85,7 +85,7 @@ async def set_param_from_command(message: Message, db: DataBase, texts: Texts):
     )
 
 
-@router.message(Command('getid'), Filters.admin_filter)
+@router.message(Command('getid'), Filters.is_admin)
 async def get_chat_id(message: Message, bot: Bot):
     info = f'<b>Current Chat ID:</b> {message.chat.id}'
     await bot.send_message(chat_id=Config.ADMIN_CHAT_ID, text=info, parse_mode=ParseMode.HTML)

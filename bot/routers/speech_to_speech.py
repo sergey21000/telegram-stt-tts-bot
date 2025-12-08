@@ -1,8 +1,8 @@
-from aiogram import Bot, Router, F
-from aiogram.filters import StateFilter
+from aiogram import Bot, Router
 from aiogram.types import Message
 
 from bot.database.user_db import DataBase
+from bot.filters.filters import Filters
 from bot.texts.localization import Localization
 from bot.texts.languages import Texts
 from bot.types import SpeechToSpeechQueueKwargs
@@ -13,10 +13,7 @@ router: Router = Router()
 texts: Texts = Localization.get_texts_by_lang()
 
 
-@router.message(
-    StateFilter(None),
-    (F.text & ~F.text.startswith('/')) | F.voice,
-)
+@router.message(Filters.is_support_photo)
 async def put_user_message_to_llm_queue(message: Message, bot: Bot, db: DataBase, texts: Texts):
     user_id = message.from_user.id
     user_config = await db.get_user_config(user_id)
@@ -37,8 +34,5 @@ async def put_user_message_to_llm_queue(message: Message, bot: Bot, db: DataBase
         texts=texts,
         user_config=user_config,
     )
-    position = await llm_queue.add_task(llm_worker_kwargs.to_dict())
-    await bot_answer_message.edit_text(
-        text=texts.ProcessMessages.wait_bot_answer_with_position(position=position),
-        parse_mode='HTML',
-    )
+    await llm_queue.add_task(llm_worker_kwargs.to_dict())
+

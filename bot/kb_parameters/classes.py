@@ -102,7 +102,7 @@ class CheckBoxKbParameter(BaseKbParameter):
         return callback_dict
 
     def get_btn_text(self, curr_value: str, btn_texts: Type, *args, **kwargs) -> str:
-        symbol = f'{self.value} ✅' if self.value == curr_value else f'{self.value} ❌'
+        symbol = f'✅ {self.value}' if self.value == curr_value else f'❌ {self.value}'
         btn_text = getattr(btn_texts, self.parameter_name, '') or self.parameter_name
         return f'{symbol}: {btn_text}'
 

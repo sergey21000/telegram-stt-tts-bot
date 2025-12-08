@@ -6,7 +6,7 @@ import pytest
 from colorama import Fore, Style
 
 from bot.types import Models
-from bot.services.llm import TextPipeline
+from bot.services.text import TextPipeline
 from bot.services.speech import SpeechPipeline
 
 from config.config import Config

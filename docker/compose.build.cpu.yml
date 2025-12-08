@@ -1,9 +1,14 @@
 services:
   bot:
     extends:
-      file: compose.base.yml
+      file: compose.yml
       service: bot
     build:
       context: ..
-      dockerfile: Dockerfile-cpu
-    image: stt-tts-bot:cpu
+      dockerfile: docker/Dockerfile
+    image: local/stt-tts-bot:latest
+
+  llamacpp:
+    extends:
+      file: compose.yml
+      service: llamacpp

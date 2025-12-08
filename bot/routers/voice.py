@@ -7,7 +7,7 @@ from aiogram.types import CallbackQuery
 from aiogram.filters import StateFilter
 
 from bot.database.user_db import DataBase
-from bot.kb_parameters.kb_parameters import KbParameters
+from bot.init.kb import KbParameters
 from bot.keyboards.keyboards import KbBuilder
 from bot.states.states import SettingsState
 from bot.texts.languages import Texts

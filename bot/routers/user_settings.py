@@ -11,7 +11,7 @@ from bot.texts.languages import Texts
 from bot.texts.localization import Localization
 
 from bot.texts.languages import Texts
-from bot.kb_parameters.kb_parameters import KbParameters
+from bot.init.kb import KbParameters
 from bot.keyboards.keyboards import KbBuilder
 
 
