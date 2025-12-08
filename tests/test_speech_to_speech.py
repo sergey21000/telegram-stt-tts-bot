@@ -58,7 +58,7 @@ async def test_speech_to_speech(
     )
     llm_text = ''
     async for text in agenerator:
-        response_text += text
+        llm_text += text
     
     llm_text = text_with_thinking + llm_text
     print(f'\n{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')

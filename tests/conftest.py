@@ -1,5 +1,6 @@
 import os
 import pytest
+import pytest_asyncio
 from llama_cpp_py import LlamaAsyncServer, LlamaAsyncClient, LlamaReleaseManager
 
 from bot.services.text import TextPipeline
@@ -7,12 +8,11 @@ from config.config import Config
 from config.user import UserConfig
 
 
-@pytest.fixture(scope='session')
-def llm_client() -> LlamaAsyncClient:
+@pytest_asyncio.fixture(scope='session')
+async def llm_client() -> LlamaAsyncClient:
     from dotenv import load_dotenv
 
-    load_dotenv()
-    load_dotenv(dotenv_path='env.llamacpp')
+    load_dotenv(dotenv_path='tests/env.llamacpp.test')
     os.environ['PYTHONUTF8'] = '1'
 
     llama_server = LlamaAsyncServer(
@@ -23,7 +23,9 @@ def llm_client() -> LlamaAsyncClient:
             # release_zip_url='https://github.com/ggml-org/llama.cpp/releases/download/b7315/llama-b7315-bin-win-cuda-13.1-x64.zip',
         ),
     )
-    return LlamaAsyncClient(openai_base_url=llama_server.openai_base_url)
+    await llama_server.start()
+    client = LlamaAsyncClient(openai_base_url=llama_server.openai_base_url)
+    return client
 
 
 @pytest.fixture

@@ -31,10 +31,10 @@ async def test_text_to_speech(llm_client: LlamaAsyncClient, user_config: UserCon
     )
     llm_text = ''
     async for text in agenerator:
-        response_text += text
+        llm_text += text
     
     print(f'\n{Fore.RED}{Style.BRIGHT}LLM text before cleaning:{Style.RESET_ALL}\n{llm_text}')
-    llm_text = TextPipeline.clean_text_before_speech(text=llm_text)
+    llm_text = TextPipeline.clean_text_before_edge_tts(text=llm_text)
     print(f'\n{Fore.GREEN}{Style.BRIGHT}LLM text after cleaning:{Style.RESET_ALL}\n{llm_text}')
     
     assert all([
