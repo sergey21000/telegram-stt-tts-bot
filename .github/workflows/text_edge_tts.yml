@@ -28,22 +28,22 @@ jobs:
       - name: Run Edge TTS test
         run: |
           python - << 'EOF'
-          import edge_tts
-          import wave
-          import asyncio
           import os
-
+          import edge_tts
+          import asyncio
+          from pathlib import Path
+          
           async def main():
-              audio_path = "test.mp3"
+              audio_path = Path("test.mp3")
               text = "Проверка связи. Это test."
               voice="ru-RU-DmitryNeural"
-
+              
               communicate = edge_tts.Communicate(text, voice)
               communicate.save_sync(path)
-
-              wav_header = audio_path.read_bytes()[:4]
-              print(f'wav_header: {wav_header}')
+              
+              audio_header = audio_path.read_bytes()[:4]
+              print(f'audio_header: {audio_header}')
               print("Edge TTS works correctly")
-
+              
           asyncio.run(main())
           EOF
