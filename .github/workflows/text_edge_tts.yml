@@ -39,7 +39,7 @@ jobs:
               voice="ru-RU-DmitryNeural"
               
               communicate = edge_tts.Communicate(text, voice)
-              communicate.save_sync(path)
+              communicate.save_sync(audio_path)
               
               audio_header = audio_path.read_bytes()[:4]
               print(f'audio_header: {audio_header}')
