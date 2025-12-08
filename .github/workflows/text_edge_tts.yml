@@ -35,11 +35,11 @@ jobs:
 
           async def main():
               path = "test.wav"
-              c = edge_tts.Communicate(text="Проверка связи. Это test.", voice="ru-RU-DmitryNeural")
-              with open(path, "wb") as f:
-                  async for chunk in c.stream():
-                      if chunk["type"] == "audio":
-                          f.write(chunk["data"])
+              text = "Проверка связи. Это test."
+              voice="ru-RU-DmitryNeural"
+
+              communicate = edge_tts.Communicate(text, voice)
+              communicate.save_sync(path)
 
               header = open(path, "rb").read(4)
               print("HEADER:", header)
