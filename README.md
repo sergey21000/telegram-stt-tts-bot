@@ -170,12 +170,12 @@ docker-compose -f docker/compose.run.cuda.yml up
 
 *Запуск с поддержкой CPU*
 ```sh
-docker-compose -f docker/compose.run.cpu.yml up
+docker-compose -f docker/compose.build.cpu.yml up
 ```
 
 *Запуск с поддержкой CUDA*
 ```sh
-docker-compose -f docker/compose.run.cuda.yml up
+docker-compose -f docker/compose.build.cuda.yml up
 ```
 При первом запуске будет произведена сборка образа на основе `Dockerfile-cpu` или `Dockerfile-cuda`
 
@@ -390,3 +390,4 @@ https://github.com/alphacep/vosk-tts/issues/19
 ## Лицензия
 
 Этот проект лицензирован на условиях лицензии [MIT](./LICENSE).
+
