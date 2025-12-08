@@ -1,14 +1,20 @@
+import os
 import pytest
 from llama_cpp_py import LlamaAsyncServer, LlamaAsyncClient, LlamaReleaseManager
 
-from bot.types import Models
 from bot.services.text import TextPipeline
 from config.config import Config
 from config.user import UserConfig
 
 
 @pytest.fixture(scope='session')
-def llm_client() -> Models:
+def llm_client() -> LlamaAsyncClient:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    load_dotenv(dotenv_path='env.llamacpp')
+    os.getenv('PYTHONUTF8') = '1'
+
     llama_server = LlamaAsyncServer(
         verbose=True,
         release_manager=LlamaReleaseManager(
@@ -27,8 +33,8 @@ def user_config() -> UserConfig:
         enable_thinking= False,
         show_thinking=False,
         stream_llm_response=False,
-        system_prompt='',
-        voice_name='male_1',
+        system_prompt='Отвечай кратко',
+        voice='en-US-AvaMultilingualNeural',
         answer_with_voice=True,
         answer_with_text=True,
     )

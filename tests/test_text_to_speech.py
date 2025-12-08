@@ -19,7 +19,7 @@ from config.user import UserConfig
     'Почему трава зеленая?',
     'Сколько будет 2 + 2?',
 ])
-async def test_text_to_speech(llm_client: LlamaAsyncClient,, user_config: UserConfig, text: str):
+async def test_text_to_speech(llm_client: LlamaAsyncClient, user_config: UserConfig, text: str):
     agenerator = llm_client.astream(
         user_message_or_messages=text,
         image_path_or_base64=None,
