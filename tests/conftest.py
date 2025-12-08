@@ -13,7 +13,7 @@ def llm_client() -> LlamaAsyncClient:
 
     load_dotenv()
     load_dotenv(dotenv_path='env.llamacpp')
-    os.getenv('PYTHONUTF8') = '1'
+    os.environ['PYTHONUTF8'] = '1'
 
     llama_server = LlamaAsyncServer(
         verbose=True,
