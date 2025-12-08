@@ -65,7 +65,8 @@ Telegram бот с поддержкой голосового и текстово
 - [aiosqlite](https://github.com/omnilib/aiosqlite) - бд для хранения настроек юзеров
 - [python-dotenv](https://github.com/theskumar/python-dotenv) - переменные окружения
 - [Pillow](https://github.com/python-pillow/Pillow) - ресайз изображения перед подачей в мультимодальную модель
-- [Модель gemma-3-1b](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF) в формате GGUF в качестве VLM модели по умолчанию (файлы `google_gemma-3-4b-it-Q8_0.gguf` и `mmproj-google_gemma-3-4b-it-f16.gguf`)
+- [Модель gemma-3-1b](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF) в формате GGUF в качестве VLM модели по умолчанию  
+(файлы `google_gemma-3-4b-it-Q8_0.gguf` и `mmproj-google_gemma-3-4b-it-f16.gguf`)
 
 
 ## 🐍 Установка и запуск через Python
@@ -128,9 +129,11 @@ uv pip install -r requirements.txt
 ```env
 BOT_TOKEN=your_token
 ```
-Установить модель для llama.cpp можно в файле `.env.llamacpp` (по умолчанию установлена VLM [bartowski/google_gemma-3-4b-it-GGUF](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF))
+Установить модель для llama.cpp можно в файле `.env.llamacpp`  
+(по умолчанию установлена VLM [bartowski/google_gemma-3-4b-it-GGUF](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF))
 
-Выбрать девайс можно в переменной `LLAMACPP_PREFER_CUDA_BUILD` (`True` для CUDA и `False` для CPU) в `config/config.py'
+Выбрать девайс можно в переменной `LLAMACPP_PREFER_CUDA_BUILD`  
+(`True` для CUDA и `False` для CPU) в `config/config.py'
 
 Подробная настройка описана в разделе [Настройка](#-настройка)
 

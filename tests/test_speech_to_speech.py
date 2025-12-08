@@ -69,7 +69,6 @@ async def test_speech_to_speech(
         tag not in llm_text for tag in TextPipeline.all_thinking_tags
     ]), 'The thought tags before the TTS were not removed'
     
-    speaker_id = Config.VOICE_NAME_TO_IDX[user_config.voice_name]
     tts_audio_path = Path(
         os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')
     ) / f'tts_result_voice_{sst_text[:6]}.wav'
