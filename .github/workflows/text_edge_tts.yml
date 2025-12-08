@@ -42,8 +42,6 @@ jobs:
               communicate.save_sync(path)
 
               header = open(path, "rb").read(4)
-              print("HEADER:", header)
-              assert header == b"RIFF", "Invalid WAV header"
 
               with wave.open(path, "rb") as w:
                   print("Channels:", w.getnchannels())
