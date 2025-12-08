@@ -23,7 +23,7 @@ jobs:
 
       - name: Set up Python
         run: |
-          uv python install ${{ matrix.python-version }}
+          uv python install 3.12
           uv venv
 
       - name: Install edge-tts
