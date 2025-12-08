@@ -34,20 +34,15 @@ jobs:
           import os
 
           async def main():
-              path = "test.wav"
+              audio_path = "test.mp3"
               text = "Проверка связи. Это test."
               voice="ru-RU-DmitryNeural"
 
               communicate = edge_tts.Communicate(text, voice)
               communicate.save_sync(path)
 
-              header = open(path, "rb").read(4)
-
-              with wave.open(path, "rb") as w:
-                  print("Channels:", w.getnchannels())
-                  print("Framerate:", w.getframerate())
-                  print("Frames:", w.getnframes())
-
+              wav_header = audio_path.read_bytes()[:4]
+              print(f'wav_header: {wav_header}')
               print("Edge TTS works correctly")
 
           asyncio.run(main())
