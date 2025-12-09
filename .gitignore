@@ -2,7 +2,6 @@
 /data/
 other/
 *.zip
-env.llamacpp
 env.llamacpp.example
 
 # Byte-compiled / optimized / DLL files
