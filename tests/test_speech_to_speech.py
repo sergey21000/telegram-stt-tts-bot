@@ -1,5 +1,6 @@
 import asyncio
 import os
+import re
 from pathlib import Path
 
 import pytest
@@ -68,9 +69,10 @@ async def test_speech_to_speech(
         tag not in llm_text for tag in TextPipeline.all_thinking_tags
     ]), 'The thought tags before the TTS were not removed'
     
+    file_suffix = re.sub(r"[^a-zA-Zа-яА-ЯёЁ0-9\s]", '', llm_text[:6])
     tts_audio_path = Path(
         os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')
-    ) / f'tts_result_voice_{sst_text[:6]}.mp3'
+    ) / f'tts_result_voice_{file_suffix}.mp3'
     tts_audio_path.unlink(missing_ok=True)
 
     await SpeechPipeline.text_to_speech(
