@@ -87,7 +87,19 @@ class MessageHandler:
                     parse_mode='HTML',
                 )
                 return
-
+        # check LLM server health
+        health_status = await llm_client.check_health()
+        if not health_status['status'] == 'ready':
+            if health_status['status'] == 'loading':
+                status_text = texts.ProcessMessages.check_health_loading
+            elif health_status['status'] == 'unavailable':
+                status_text = texts.ProcessMessages.check_health_unavailable
+            elif health_status['status'] == 'down':
+                status_text = texts.ProcessMessages.check_health_error
+            else:
+                status_text = texts.ProcessMessages.check_health_error_other
+            await user_message.answer(text=status_text, parse_mode='HTML')
+            return
         # text or (photo and text)
         user_message_text = user_message.caption or user_message.text
         image = user_message.photo[-1] if user_message.photo else None

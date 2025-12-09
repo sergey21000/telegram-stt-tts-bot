@@ -107,6 +107,11 @@ class ProcessMessages:
     stt = 'Recognizing text from speech...'
     llm = 'Generating response ...'
     tts = 'Speech synthesis ...'
+    check_health_loading = '⏳ Model is initializing, please send the request again'
+    check_health_unavailable = '⏳❌ Model is still downloading or the server is unavailable, please try again later'
+    check_health_error = '❌ Server unavailable'
+    check_health_error_other = '❌ Server unavailable (Unknown error)'
+
 
 def wait_bot_answer_with_position(position: int, n_max_concurrent_tasks: int) -> str:
     return (

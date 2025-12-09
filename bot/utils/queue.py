@@ -37,12 +37,12 @@ class LimitedLLMQueue:
                 logger.exception(str(e), exc_info=True)
                 await queue_kwargs['bot'].send_message(
                     chat_id=queue_kwargs['user_message'].from_user.id,
-                    text='❌ Error processing queue function',
+                    text='❌ Error processing request',
                 )
                 if Config.ADMIN_CHAT_ID:
                     await queue_kwargs['bot'].send_message(
                         chat_id=Config.ADMIN_CHAT_ID,
-                        text=f'❌ Error processing queue function: {e}',
+                        text=f'❌ Error processing queue function {worker_func}: {e}',
                     )
             finally:
                 self._active -= 1

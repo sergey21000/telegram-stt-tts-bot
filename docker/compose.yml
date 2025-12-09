@@ -12,8 +12,9 @@ services:
       - path: ../.env
         required: true
     depends_on:
-      llamacpp:
-        condition: service_healthy 
+      - llamacpp
+      # llamacpp:
+        # condition: service_healthy 
 
   llamacpp:
     image: ghcr.io/ggml-org/llama.cpp:server
@@ -30,9 +31,9 @@ services:
     env_file:
       - path: ../env.llamacpp
         required: true
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
+    # healthcheck:
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/v1/health"]
+      # interval: 10s
+      # timeout: 5s
+      # retries: 30
+      # start_period: 10s

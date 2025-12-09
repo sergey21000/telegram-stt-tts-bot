@@ -106,7 +106,11 @@ class ProcessMessages:
     stt = 'Распознавание текста из речи...'
     llm = 'Генерация ответа ...'
     tts = 'Синтез речи ...'
-
+    check_health_loading = '⏳ Модель инициализируется, отправьте запрос еще'
+    check_health_unavailable = '⏳❌ Модель еще скачивается или сервер недоступен, попробуйте позже'
+    check_health_error = '❌ Сервер недоступен'
+    check_health_error_other = '❌ Сервер недоступен (Неизвестная ошибка)'
+    
     def wait_bot_answer_with_position(position: int, n_max_concurrent_tasks: int) -> str:
         return (
             f'<b>⏳ Запрос принят, ваше место в очереди: {position}</b>\n'
