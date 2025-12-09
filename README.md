@@ -56,22 +56,22 @@ Telegram бот с поддержкой голосового и текстово
 
 **Стек технологий**
 - [python](https://www.python.org/) >= 3.10
-- [aiogram](https://github.com/aiogram/aiogram) для написания Telegram бота
-- [llama-cpp-py](https://github.com/sergey21000/llama-cpp-py) python обертка для запуска [llama.cpp] (https://github.com/ggml-org/llama.cpp) сервера (локальные LLM модели в формате GGUF)
+- [aiogram](https://github.com/aiogram/aiogram) асинхронная библиотека для написания Telegram ботов
+- [llama-cpp-py](https://github.com/sergey21000/llama-cpp-py) python обертка для запуска [llama.cpp](https://github.com/ggml-org/llama.cpp) сервера (локальные LLM модели в формате GGUF)
 - [SpeechRecognition](https://github.com/Uberi/speech_recognition) для распознавания речи (STT) (онлайн сервис)
 - [edge-tts](https://github.com/rany2/edge-tts) для синтеза речи (TTS) (онлайн сервис)
-- [ffmpeg](https://ffmpeg.org/) для конвертации голосовых сообщений из формата `.ogg` в формат `wave`
-- [chatgpt-md-converter](https://github.com/Latand/formatter-chatgpt-telegram) для преобразования ответов LLM из формата Markdown в формат HTML, совместимый с Telegram bot API
-- [aiosqlite](https://github.com/omnilib/aiosqlite) - бд для хранения настроек юзеров
+- [ffmpeg](https://ffmpeg.org/) для конвертации видео и аудио в формат `wav`
+- [chatgpt-md-converter](https://github.com/Latand/formatter-chatgpt-telegram) для преобразования ответов LLM из Markdown в формат HTML, совместимый с Telegram bot API
+- [aiosqlite](https://github.com/omnilib/aiosqlite) - база данных для хранения настроек пользователей
 - [python-dotenv](https://github.com/theskumar/python-dotenv) - переменные окружения
-- [Pillow](https://github.com/python-pillow/Pillow) - ресайз изображения перед подачей в мультимодальную модель
-- [Модель gemma-3-1b](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF) в формате GGUF в качестве VLM модели по умолчанию  
+- [Pillow](https://github.com/python-pillow/Pillow) - resize изображения перед подачей в мультимодальную модель
+- [Модель gemma-3-4b](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF) в формате GGUF в качестве VLM модели по умолчанию  
 (файлы `google_gemma-3-4b-it-Q8_0.gguf` и `mmproj-google_gemma-3-4b-it-f16.gguf`)
 
 
 ## 🐍 Установка и запуск через Python
 
-**1) Установка `ffmpeg`**
+<ins><b>1) Установка `ffmpeg`</b></ins>
 
  - *Linux*
   ```sh
@@ -82,15 +82,15 @@ Telegram бот с поддержкой голосового и текстово
   winget install ffmpeg
   ```
 
-**2) Клонирование репозитория**  
+<ins><b>2) Клонирование репозитория</b></ins>
 ```ps1
 git clone https://github.com/sergey21000/telegram-stt-tts-bot.git
 cd telegram-stt-tts-bot
 ```
 
-**3) Создание и активация виртуального окружения (опционально)**
+<ins><b>3) Создание и активация виртуального окружения (опционально)</b></ins>
 
-<ins><b>Через Pip</b></ins>
+**Через Pip**
 
 - *Linux*
   ```sh
@@ -104,26 +104,26 @@ cd telegram-stt-tts-bot
   .venv\Scripts\activate.ps1
   ```
 
-<ins><b>Через [UV](https://docs.astral.sh/uv/getting-started/installation/)</b></ins>
+**Через [UV](https://docs.astral.sh/uv/getting-started/installation/)**
 
 *Linux/Windows*
 ```ps1
 uv venv
 ```
 
-**4) Установка зависимостей**  
+<ins><b>4) Установка зависимостей</b></ins>
 
-<ins><b>Через Pip</b></ins>
+**Через Pip**
 ```ps1
 pip install -r requirements.txt
 ```
 
-<ins><b>Через [UV](https://docs.astral.sh/uv/getting-started/installation/)</b></ins>
+**Через [UV](https://docs.astral.sh/uv/getting-started/installation/)**
 ```ps1
 uv pip install -r requirements.txt
 ```
 
-**5) Установка токена бота и модели LLM / VLM**
+<ins><b>5) Установка токена бота и модели LLM / VLM</b></ins>
 
 Установить в переменую `BOT_TOKEN` в файле `.env` токен бота, полученный у https://t.me/BotFather
 ```env
@@ -137,14 +137,14 @@ BOT_TOKEN=your_token
 
 Подробная настройка описана в разделе [Настройка](#-настройка)
 
-**6) Запуск бота**  
+<ins><b>6) Запуск бота</b></ins>
 
-<ins><b>Через Python</b></ins>
+**Через Python**
 ```ps1
 python main.py
 ```
 
-<ins><b>Через [UV](https://docs.astral.sh/uv/getting-started/installation/)</b></ins>
+**Через [UV](https://docs.astral.sh/uv/getting-started/installation/)**
 ```ps1
 uv run main.py
 ```
@@ -155,14 +155,15 @@ http://127.0.0.1:8081/
 При первом запуске произойдет загрузка LLM / VLM моделей, установленных в файле `env.llamacpp` по умолчанию, поэтому
 бот будет доступен не сразу
 
-**Запуск тестов**
+---
+<ins><b>Запуск тестов</b></ins>
 
-<ins><b>Через Python</b></ins>
+**Через Python**
 ```ps1
 pytest -vs
 ```
 
-<ins><b>Через [UV](https://docs.astral.sh/uv/getting-started/installation/)</b></ins>
+**Через [UV](https://docs.astral.sh/uv/getting-started/installation/)**
 ```ps1
 uv run python -m pytest -vs
 ```
