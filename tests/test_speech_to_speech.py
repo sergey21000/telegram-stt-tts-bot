@@ -69,7 +69,7 @@ async def test_speech_to_speech(
         tag not in llm_text for tag in TextPipeline.all_thinking_tags
     ]), 'The thought tags before the TTS were not removed'
     
-    file_suffix = re.sub(r"[^a-zA-Zа-яА-ЯёЁ0-9\s]", '', llm_text[:6])
+    file_suffix = re.sub(r"[^a-zA-Z0-9а-яА-ЯёЁ]", '_', llm_text[:6])
     tts_audio_path = Path(
         os.getenv('TTS_AUDIO_DIR', 'tests/test_files/')
     ) / f'tts_result_voice_{file_suffix}.mp3'
