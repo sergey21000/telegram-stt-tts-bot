@@ -20,9 +20,9 @@ def get_callback_name_suffix() -> str:
 class MainKbMessages:
     main_menu: str = (
         "👻 <b>Welcome, bot usage options:</b>\n"
-        "• Write a text or voice message to get a response.\n"
-        "• Send an image and a caption, for example: «What is shown here?»\n"
-        "• Send a video or audio file to get a text transcript of the audio track"
+        "• Write a text 📝 or voice 🎤 message to get a response.\n"
+        "• Send an image  📸 and a caption 📝, for example: «What is shown here?»\n"
+        "• Send a video or audio file 📎 to get a text transcript of the audio track"
     )
     get_params: str = '📊 Current parameters'
     change_voice: str = '🎤 Select a voice'
