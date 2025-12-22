@@ -14,7 +14,7 @@ def setup_logging() -> None:
         "%(levelname)-8s | "
         "%(module)s:%(funcName)s:%(lineno)d - "
         "%(message)s"
-)
+    )
     logging.basicConfig(
         level=Config.LOG_LEVEL,
         format=format,
