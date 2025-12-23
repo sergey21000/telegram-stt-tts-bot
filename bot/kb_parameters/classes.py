@@ -48,7 +48,7 @@ class NumKbParameter(BaseKbParameter):
     def validate_new_value(self, new_value: float | int | bool) -> bool:
         return self.min <= self.type(new_value) <= self.max
 
-    def get_new_value(self, curr_value: float, callback_name: str) -> SetParamStatus:
+    def get_new_value(self, curr_value: float) -> SetParamStatus:
         if self.subtype == self.increase_subtype:
             new_value = curr_value + self.step
         elif self.subtype == self.decrease_subtype:

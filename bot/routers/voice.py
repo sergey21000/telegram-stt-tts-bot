@@ -46,7 +46,7 @@ async def change_voice_settings(callback: CallbackQuery, db: DataBase, texts: Te
     user_config = await db.get_user_config(user_id=user_id)
     kb_parameter = KbParameters.voice.callbacks[callback.data]
     curr_value = user_config.to_dict()[kb_parameter.parameter_name]
-    result_status = kb_parameter.get_new_value(curr_value=curr_value, callback_name=callback.data)
+    result_status = kb_parameter.get_new_value(curr_value=curr_value)
     user_config = await db.update_user_config(user_id=user_id, **result_status.result)
     await callback.message.edit_text(
         text=texts.MainKbMessages.change_voice,

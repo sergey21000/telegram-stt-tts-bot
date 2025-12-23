@@ -54,7 +54,7 @@ async def change_user_settings(callback: CallbackQuery, state: FSMContext, bot: 
         await state.update_data(param_name_to_update=kb_parameter.parameter_name)
         await state.set_state(SettingsState.input_str_param)
         return
-    result_status = kb_parameter.get_new_value(curr_value=curr_value, callback_name=callback.data)
+    result_status = kb_parameter.get_new_value(curr_value=curr_value)
     if not result_status.is_ok:
         await bot.answer_callback_query(callback.id, text=texts.KbParameterMessages.out_of_range(
             parameter_name=kb_parameter.parameter_name,
