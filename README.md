@@ -167,7 +167,7 @@ pytest -vs
 
 **Через [UV](https://docs.astral.sh/uv/getting-started/installation/)**
 ```ps1
-uv run python -m pytest -vs
+uv run pytest -vs
 ```
 
 
