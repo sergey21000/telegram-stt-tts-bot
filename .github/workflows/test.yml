@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
@@ -45,7 +45,7 @@ jobs:
           --local-dir ${{ env.LLM_MODEL_DIR }}
           
       - name: Upload models artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: models
           path: data
@@ -60,10 +60,10 @@ jobs:
         python-version: ["3.12"]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download models artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: models
           path: data
@@ -98,7 +98,7 @@ jobs:
 
       - name: Upload TTS result artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: tts-audio-${{ matrix.python-version }}-${{ runner.os }}
           path: ${{ env.TTS_AUDIO_DIR }}
@@ -113,7 +113,7 @@ jobs:
         python-version: ["3.12"]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download models artifact
         uses: actions/download-artifact@v4
