@@ -12,7 +12,7 @@ from config.user import UserConfig
 async def llm_client() -> LlamaAsyncClient:
     from dotenv import load_dotenv
 
-    load_dotenv(dotenv_path='tests/env.llamacpp.test')
+    load_dotenv(dotenv_path='tests/llamacpp.test.env')
     os.environ['PYTHONUTF8'] = '1'
 
     llama_server = LlamaAsyncServer(

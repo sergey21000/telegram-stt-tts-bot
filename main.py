@@ -2,7 +2,7 @@ import asyncio
 
 from dotenv import load_dotenv
 load_dotenv()
-load_dotenv(dotenv_path='env.llamacpp')
+load_dotenv(dotenv_path='llamacpp.env')
 
 from bot.utils.logging_config import setup_logging
 setup_logging()

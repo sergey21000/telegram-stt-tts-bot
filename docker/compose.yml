@@ -29,7 +29,7 @@ services:
       - ../data/llm_model:/root/.cache/llama.cpp
       - ../data/llm_model:/app/data/llm_model
     env_file:
-      - path: ../env.llamacpp
+      - path: ../llamacpp.env
         required: true
     # healthcheck:
       # test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/v1/health"]

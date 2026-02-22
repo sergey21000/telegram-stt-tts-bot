@@ -21,6 +21,8 @@ class KbBuilder:
         builder.button(
             text=enum.value,
             callback_data=enum.get_callback_name(),
+            # https://docs.aiogram.dev/en/v3.25.0/api/types/keyboard_button.html#aiogram.types.keyboard_button.KeyboardButton.style
+            # style=None,  #  ‘danger’ (red), ‘success’ (green) or ‘primary’ (blue)
         )
 
     @classmethod
