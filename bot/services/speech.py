@@ -5,7 +5,7 @@ import wave
 import speech_recognition as sr
 import edge_tts
 from edge_tts import VoicesManager
-from loguru import logger
+from bot.utils.logger import logger
 
 
 class SpeechPipeline:

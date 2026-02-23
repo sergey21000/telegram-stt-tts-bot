@@ -44,6 +44,7 @@ class TextPipeline:
 
     @classmethod
     def clean_text_before_edge_tts(cls, text: str) -> str:
+        text = cls.clean_thinking_tags(text)
         text = re.sub(r"[^a-zA-Zа-яА-ЯёЁ0-9\s.,!?;:()\"'-]", '', text)
         text = re.sub(r'[\"\'«»]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
@@ -51,6 +52,7 @@ class TextPipeline:
 
     @classmethod
     def clean_text_before_vosk_tts(cls, text: str) -> str:
+        text = cls.clean_thinking_tags(text)
         text = cls.transliterate_english_to_russian(text)
         text = re.sub(r"[^a-zA-Zа-яА-Я0-9\s.,!?;:()\"'-]", '', text)
         text = re.sub(r'[\"\'«»]', '', text)

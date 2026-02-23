@@ -26,7 +26,7 @@ async def help(message: Message, state: FSMContext, texts: Texts):
     await message.answer(
         text=texts.MainKbMessages.get_help_info(commands_info=texts.BotCommands.commands_info),
         reply_markup=KbBuilder.main_kb(texts),
-        parse_mode=ParseMode.HTML,
+        parse_mode='HTML',
     )
 
 
@@ -35,7 +35,7 @@ async def bot_info(callback: CallbackQuery, texts: Texts):
     await callback.message.edit_text(
         text=texts.MainKbMessages.get_help_info(commands_info=texts.BotCommands.commands_info),
         reply_markup=KbBuilder.main_kb(texts),
-        parse_mode=ParseMode.HTML,
+        parse_mode='HTML',
     )
 
 @router.message(Command('settings'))
@@ -82,6 +82,7 @@ async def set_param_from_command(message: Message, db: DataBase, texts: Texts):
     await message.answer(
         text=texts.KbParameterMessages.success_resetparams,
         reply_markup=KbBuilder.main_kb(texts),
+        parse_mode='HTML',
     )
 
 

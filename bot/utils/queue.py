@@ -1,7 +1,7 @@
 import asyncio
 import concurrent
 from typing import Any, Awaitable, Callable
-from loguru import logger
+from bot.utils.logger import logger
 
 from config.config import Config
 

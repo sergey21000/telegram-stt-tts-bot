@@ -28,4 +28,5 @@ async def back_to_main_menu(callback: CallbackQuery, state: FSMContext, texts: T
     await callback.message.edit_text(
         text=texts.MainKbMessages.main_menu,
         reply_markup=KbBuilder.main_kb(texts),
+        parse_mode='HTML',
     )

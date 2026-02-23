@@ -1,5 +1,5 @@
 import os
-from loguru import logger
+from bot.utils.logger import logger
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage

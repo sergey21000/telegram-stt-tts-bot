@@ -47,7 +47,7 @@ class UserConfig(BaseConfig):
             extra_body=dict(
                 top_k=self.top_k,
                 repeat_penalty=self.repeat_penalty,
-                # reasoning_format='none',
+                reasoning_format='none',
                 chat_template_kwargs=dict(
                     enable_thinking=self.enable_thinking,
                 ),

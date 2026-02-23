@@ -111,7 +111,7 @@ class ProcessMessages:
     check_health_unavailable = '⏳❌ Model is still downloading or the server is unavailable, please try again later'
     check_health_error = '❌ Server unavailable'
     check_health_error_other = '❌ Server unavailable (Unknown error)'
-
+    check_multimodal_support_false = '❌ Images are not supported by the current model'
 
 def wait_bot_answer_with_position(position: int, n_max_concurrent_tasks: int) -> str:
     return (

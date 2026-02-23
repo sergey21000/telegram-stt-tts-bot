@@ -83,5 +83,6 @@ async def set_text_parameter(message: Message, state: FSMContext, db: DataBase, 
     await message.answer(
         text=texts.MainKbMessages.succes_update_str_parameter(param_name_to_update),
         reply_markup=KbBuilder.main_kb(texts),
+        parse_mode='HTML',
     )
     await state.clear()

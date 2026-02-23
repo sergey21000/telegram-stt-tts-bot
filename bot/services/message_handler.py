@@ -12,7 +12,7 @@ from aiogram.types import FSInputFile
 
 from chatgpt_md_converter import telegram_format
 import speech_recognition as sr
-from loguru import logger
+from bot.utils.logger import logger
 
 from bot.texts.locales.ru import Texts
 from bot.services.text import TextPipeline
@@ -65,7 +65,10 @@ class MessageHandler:
                     sample_rate=Config.SAMPLE_RATE_BEFORE_STT,
                 )
                 if not convert_ok:
-                    await user_message.answer(texts.ProcessMessages.convert_media_to_wav_error)
+                    await user_message.answer(
+                        texts.ProcessMessages.convert_media_to_wav_error,
+                        parse_mode='HTML',
+                    )
                     return
                 status_text += texts.ProcessMessages.tts + '\n'
                 await bot_message.edit_text(
@@ -105,10 +108,17 @@ class MessageHandler:
         image = user_message.photo[-1] if user_message.photo else None
         image_base64 = None
         if image:
+            if not await llm_client.check_multimodal_support():
+                await user_message.answer(
+                    text=texts.ProcessMessages.check_multimodal_support_false,
+                    disable_notification=False,
+                    parse_mode='HTML',
+                )
+                return
             file = await bot.get_file(image.file_id)
             image_bytes = await bot.download_file(file.file_path)
             image_base64 = base64.b64encode(image_bytes.read()).decode()
-
+        # voice
         if user_message.voice:
             async with ChatActionSender(bot=bot, chat_id=user_message.from_user.id, action='typing'):
                 status_text += texts.ProcessMessages.convert_media_to_wav + '\n'
@@ -147,7 +157,10 @@ class MessageHandler:
                 Path(wav_voice_name).unlink(missing_ok=True)
 
         if not user_message_text:
-            await user_message.answer(texts.ProcessMessages.speech_recognition_error)
+            await user_message.answer(
+                texts.ProcessMessages.speech_recognition_error,
+                parse_mode='HTML',
+            )
             return
         # get llm response
         agenerator = llm_client.astream(
@@ -196,12 +209,13 @@ class MessageHandler:
             async with ChatActionSender(bot=bot, chat_id=user_message.from_user.id, action='record_voice'):
                 if Config.MAX_N_CHARS_BEFORE_TTS:
                     response_text = response_text[:Config.MAX_N_CHARS_BEFORE_TTS]
-                status_text += texts.ProcessMessages.tts + '\n'
-                await bot_message.edit_text(
-                    text=status_text,
-                    disable_notification=True,
-                    parse_mode='HTML',
-                )
+                if not user_config.stream_llm_response:
+                    status_text += texts.ProcessMessages.tts + '\n'
+                    await bot_message.edit_text(
+                        text=status_text,
+                        disable_notification=True,
+                        parse_mode='HTML',
+                    )
                 response_text = TextPipeline.clean_text_before_edge_tts(response_text)
                 logger.debug(f'len text before tts: {len(response_text)}')
                 logger.debug(f'Text before tts: {response_text}')
