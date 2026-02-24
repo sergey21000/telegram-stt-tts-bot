@@ -7,8 +7,8 @@ class Config:
     ADMIN_CHAT_ID: str = os.getenv('ADMIN_CHAT_ID', '')
     MAX_N_CHARS_BEFORE_TTS: int | None = 2048
     AVAILABLE_VOICES: list[str] = []
-    CHATBOT_LOG_LEVEL: str = os.getenv('CHATBOT_LOG_LEVEL', 'WARNING')
-    LOGGING_LOG_LEVEL: str = os.getenv('LOGGING_LOG_LEVEL', '')
+    CHATBOT_LOG_LEVEL: str = os.getenv('CHATBOT_LOG_LEVEL')
+    LOGGING_LOG_LEVEL: str = os.getenv('LOGGING_LOG_LEVEL')
     SAMPLE_RATE_BEFORE_STT: int | None = None
     IMAGE_RESIZE_SIZE: int | None = 512
     # https://github.com/ggml-org/llama.cpp/releases

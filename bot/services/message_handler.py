@@ -5,15 +5,15 @@ import time
 from typing import AsyncIterator
 from pathlib import Path
 
+import speech_recognition as sr
+from chatgpt_md_converter import telegram_format
+
 from aiogram import Bot
 from aiogram.types import Message
 from aiogram.utils.chat_action import ChatActionSender
 from aiogram.types import FSInputFile
 
-from chatgpt_md_converter import telegram_format
-import speech_recognition as sr
 from bot.utils.logger import logger
-
 from bot.texts.locales.ru import Texts
 from bot.services.text import TextPipeline
 from bot.services.speech import SpeechPipeline
@@ -155,7 +155,6 @@ class MessageHandler:
                 logger.debug(f'Recognized text from voice: {user_message_text}')
                 Path(ogg_voice_name).unlink(missing_ok=True)
                 Path(wav_voice_name).unlink(missing_ok=True)
-
         if not user_message_text:
             await user_message.answer(
                 texts.ProcessMessages.speech_recognition_error,

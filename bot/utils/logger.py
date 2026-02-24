@@ -22,7 +22,7 @@ class IsolationDefaultHandlerFilter:
     def __init__(self, logger_extras: list[str]):
         self.logger_extras = logger_extras
 
-    def __call__(self, record):
+    def __call__(self, record) -> bool:
         for logger_extra in self.logger_extras:
             if logger_extra in record['extra']:
                 return False
@@ -45,7 +45,6 @@ if Config.CHATBOT_LOG_LEVEL:
         colorize=True,
     )
     logger = logger.bind(stt_tts_chatbot=True)
-    # print('logger._core.handlers from bot', logger._core.handlers)
 
 
 # set log level for logging (for example, aiogram)
