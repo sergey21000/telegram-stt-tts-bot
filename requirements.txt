@@ -10,5 +10,5 @@ pillow>=12.1.1
 pytest==9.0.2
 pytest-asyncio>=1.3.0
 colorama==0.4.6
-llama-cpp-py>=0.1.29
+llama-cpp-py>=0.1.30
 # git+https://github.com/sergey21000/llama-cpp-py.git
