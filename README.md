@@ -304,24 +304,24 @@ BOT_TOKEN=0123456789:AAF3EvtzIxx7qOPgv725tFRKZZTLaAJ3xX4
 
 *Запуск с поддержкой CPU*
 ```sh
-docker-compose -f docker/compose.yml up
+docker compose -f docker/compose.yml up
 ```
 
 *Запуск с поддержкой CUDA*
 ```sh
-docker-compose -f docker/compose.cuda.yml up
+docker compose -f docker/compose.cuda.yml up
 ```
 
 **3) Запуск Compose со сборкой образа**
 
 *Запуск с поддержкой CPU*
 ```sh
-docker-compose -f docker/compose.build.cpu.yml up
+docker compose -f docker/compose.build.cpu.yml up
 ```
 
 *Запуск с поддержкой CUDA*
 ```sh
-docker-compose -f docker/compose.build.cuda.yml up
+docker compose -f docker/compose.build.cuda.yml up
 ```
 При первом запуске будет произведена сборка образа на основе `Dockerfile`
 
