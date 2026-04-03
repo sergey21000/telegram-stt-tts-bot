@@ -173,7 +173,7 @@ uv run pytest -vs
 
 ## 🛠 Настройка
 
-Настройки бота перед запуском находятся в файлах `config/config.py` (далее - конфиг) и `llamacpp.env`
+Настройки бота перед запуском находятся в файлах `config/config.py` (далее - конфиг) и `.llama.env`
 
 ---
 <ins><b>Настройка llama.cpp</b></ins>
@@ -203,10 +203,10 @@ https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md
 - [Поиск на HuggingFace](https://huggingface.co/models?pipeline_tag=text-generation&library=gguf&sort=trending)
 - [Зеркало HuggingFace](https://hf-mirror.com/)
 
-По умолчанию в `llamacpp.env` установлена модель [bartowski/google_gemma-3-4b-it-GGUF](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF) - при первом запуске бота будут загружены файлы `google_gemma-3-4b-it-Q8_0.gguf` (2.49 GB) и `mmproj-google_gemma-3-4b-it-f16.gguf` (851 MB)  в директорию `data/llm_model`
+По умолчанию в `.llama.env` установлена модель [bartowski/google_gemma-3-4b-it-GGUF](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF) - при первом запуске бота будут загружены файлы `google_gemma-3-4b-it-Q8_0.gguf` (2.49 GB) и `mmproj-google_gemma-3-4b-it-f16.gguf` (851 MB)  в директорию `data/llm_model`
 
 > [!NOTE]
-> Если в файле `llamacpp.env` установлена ссылка на модель `LLAMA_ARG_MODEL_URL`, то ее первоначальное скачивание с HF может быть долгим, или вообще невозможным если сайт HF недоступен, в таком случае можно заранее скачать файл модели в формате GGUF (например через зеркало HF) и указать путь до модели в аргументе `LLAMA_ARG_MODEL`
+> Если в файле `.llama.env` установлена ссылка на модель `LLAMA_ARG_MODEL_URL`, то ее первоначальное скачивание с HF может быть долгим, или вообще невозможным если сайт HF недоступен, в таком случае можно заранее скачать файл модели в формате GGUF (например через зеркало HF) и указать путь до модели в аргументе `LLAMA_ARG_MODEL`
 
 ---
 **Настройка установки llama.cpp**
@@ -416,7 +416,7 @@ docker-compose up
 │── 📁 tests/                    - тесты
 │    └── test_simple.py          - простой тест запуска бота и отправки сообщения юзеру
 ├── .env                         - файл с токеном бота которыый нужно обязательно создать перед запуском
-├── llamacpp.env                 - настройки llama.cpp сервера
+├── .llama.env                 - настройки llama.cpp сервера
 ├── requirements.md              - библиотеки и их версии
 ├── README.md                    - описание проекта
 └── main.py                      - главный файл запуска бота
