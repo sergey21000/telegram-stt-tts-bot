@@ -131,8 +131,8 @@ uv pip install -r requirements.txt
 ```env
 BOT_TOKEN=your_token
 ```
-Установить модель для llama.cpp можно в файле `llamacpp.env`  
-(по умолчанию установлена VLM [bartowski/google_gemma-3-4b-it-GGUF](https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF))
+Установить модель для llama.cpp можно в файле `.llama.env`  
+(по умолчанию установлена VLM [bartowski/Qwen_Qwen3.5-0.8B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3.5-0.8B-GGUF))
 
 Выбрать девайс можно в переменной `LLAMACPP_PREFER_CUDA_BUILD`  
 (`True` для CUDA и `False` для CPU) в `config/config.py'
@@ -154,7 +154,7 @@ uv run main.py
 После запуска дополнительно будет доступен web-интерфейс llama.cpp по адресу  
 http://127.0.0.1:8081/
 
-При первом запуске произойдет загрузка LLM / VLM моделей, установленных в файле `llamacpp.env`  по умолчанию, поэтому
+При первом запуске произойдет загрузка LLM / VLM моделей, установленных в файле `.llama.env`  по умолчанию, поэтому
 бот будет доступен не сразу
 
 ---

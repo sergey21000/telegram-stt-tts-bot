@@ -92,21 +92,15 @@ class MessageHandler:
                 return
         # check LLM server health
         health_status = await llm_client.check_health()
-        if not health_status['status'] == 'ready':
-            if health_status['status'] == 'loading':
-                status_text = texts.ProcessMessages.check_health_loading
-            elif health_status['status'] == 'unavailable':
-                status_text = texts.ProcessMessages.check_health_unavailable
-            elif health_status['status'] == 'down':
-                status_text = texts.ProcessMessages.check_health_error
-            else:
-                status_text = texts.ProcessMessages.check_health_error_other
+        if not health_status:
+            status_text = texts.ProcessMessages.check_health_error
             await user_message.answer(text=status_text, parse_mode='HTML')
             return
         # text or (photo and text)
         user_message_text = user_message.caption or user_message.text
         image = user_message.photo[-1] if user_message.photo else None
-        image_base64 = None
+        # image_base64 = None
+        image_path = None
         if image:
             if not await llm_client.check_multimodal_support():
                 await user_message.answer(
@@ -117,7 +111,10 @@ class MessageHandler:
                 return
             file = await bot.get_file(image.file_id)
             image_bytes = await bot.download_file(file.file_path)
-            image_base64 = base64.b64encode(image_bytes.read()).decode()
+            # image_base64 = base64.b64encode(image_bytes.read()).decode()
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as tmp_image:
+                image_path = tmp_image.name
+                Path(image_path).write_bytes(image_bytes.read())
         # voice
         if user_message.voice:
             async with ChatActionSender(bot=bot, chat_id=user_message.from_user.id, action='typing'):
@@ -164,7 +161,7 @@ class MessageHandler:
         # get llm response
         agenerator = llm_client.astream(
             user_message_or_messages=user_message_text,
-            image_path_or_base64=image_base64,
+            image_path=image_path,
             resize_size=Config.IMAGE_RESIZE_SIZE,
             completions_kwargs=user_config.get_completions_kwargs(),
             show_thinking=user_config.show_thinking,
@@ -203,6 +200,8 @@ class MessageHandler:
                         disable_notification=disable_notification,
                         parse_mode='HTML',
                     )
+        if image_path:
+            Path(image_path).unlink(missing_ok=True)
         # tts
         if user_config.answer_with_voice:
             async with ChatActionSender(bot=bot, chat_id=user_message.from_user.id, action='record_voice'):
