@@ -24,17 +24,15 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.3.0
         with:
           enable-cache: true
-
-      - name: Set up Python
-        run: |
-          uv python install 3.12
-          uv venv
+          python-version: 3.12
 
       - name: Install huggingface-hub
-        run: uv pip install huggingface-hub[hf_xet]
+        run: |
+          uv venv
+          uv pip install huggingface-hub[hf_xet]
 
       - name: Create model directory (need for Windows)
         run: mkdir -p ${{ env.LLM_MODEL_DIR }}
@@ -74,17 +72,14 @@ jobs:
           ls -lh ${{ env.LLM_MODEL_DIR }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.3.0
         with:
           enable-cache: true
-
-      - name: Set up Python
-        run: |
-          uv python install ${{ matrix.python-version }}
-          uv venv
+          python-version: ${{ matrix.python-version }}
         
       - name: Install dependencies
         run: |
+          uv venv
           uv pip install -r requirements.txt
 
       - name: Install ffmpeg
@@ -127,7 +122,7 @@ jobs:
           dir ${{ env.LLM_MODEL_DIR }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.3.0
         with:
           enable-cache: true
 
